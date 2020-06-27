@@ -16,7 +16,8 @@ const activityRoutes = require('./routes/activities'),
 	commentRoutes = require('./routes/comments'),
 	indexRoutes = require('./routes/index')
 
-mongoose.connect("mongodb://localhost:27017/test_together", {useNewUrlParser: true, useUnifiedTopology: true})
+//mongoose.connect("mongodb://localhost:27017/test_together", {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb+srv://testtogether314:Test4Togetheraho@dotogether-z9xfo.mongodb.net/test_together?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + '/public'))
