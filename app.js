@@ -16,8 +16,10 @@ const activityRoutes = require('./routes/activities'),
 	commentRoutes = require('./routes/comments'),
 	indexRoutes = require('./routes/index')
 
-//mongoose.connect("mongodb://localhost:27017/test_together", {useNewUrlParser: true, useUnifiedTopology: true})
-mongoose.connect("mongodb+srv://testtogether314:Test4Togetheraho@dotogether-z9xfo.mongodb.net/test_together?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+let url = process.env.DATABASEURL || 'mongodb://localhost:27017/test_together' 
+
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + '/public'))
@@ -47,6 +49,8 @@ app.use('/activities', activityRoutes)
 app.use('/activities/:id/comments', commentRoutes)
 app.use(indexRoutes)
 
-app.listen(process.env.PORT, process.env.IP, function() { 
+let port = process.env.PORT || '3000'
+
+app.listen(port, process.env.IP, function() { 
 	console.log('Server Started')
 })
