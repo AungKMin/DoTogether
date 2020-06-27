@@ -3,6 +3,7 @@ const Comment = require('../models/comment')
 
 let middlewareObj = {}
 
+// is user logged in
 middlewareObj.isLoggedIn = function isLoggedIn(req, res, next) { 
 	if (req.isAuthenticated()) { 
 		return next()
@@ -11,6 +12,7 @@ middlewareObj.isLoggedIn = function isLoggedIn(req, res, next) {
 	res.redirect('/login')
 }
 
+// does the user own the activity
 middlewareObj.checkActivityOwnership = function checkActivityOwnership(req, res, next) { 
 	if (req.isAuthenticated()) { 
 			Activity.findById(req.params.id, function(err, foundActivity) { 
@@ -32,6 +34,7 @@ middlewareObj.checkActivityOwnership = function checkActivityOwnership(req, res,
 		}
 }
 
+// doe sthe user own the comment
 middlewareObj.checkCommentOwnership = function checkCommentOwnership(req, res, next) { 
 	if (req.isAuthenticated()) { 
 		Comment.findById(req.params.comment_id, function(err, comment) { 
@@ -53,5 +56,5 @@ middlewareObj.checkCommentOwnership = function checkCommentOwnership(req, res, n
 	}
 }
 
-
+// exports
 module.exports = middlewareObj

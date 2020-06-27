@@ -4,7 +4,7 @@ const Activity = require('../models/activity')
 const Comment = require('../models/comment')
 const middleware = require('../middleware')
 
-// new
+// new (show a form to create a comment)
 router.get('/new', middleware.isLoggedIn, function(req, res) { 
 	Activity.findById(req.params.id, function(err, activity) { 
 		if (err) { 
@@ -15,7 +15,7 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
 	})
 })
 
-// create 
+// create comment
 router.post('/', middleware.isLoggedIn, function(req, res) { 
 	Activity.findById(req.params.id, function(err, activity) { 
 		if (err) { 
@@ -40,7 +40,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 	})
 })
 
-// edit
+// edit (show a form to edit comment)
 router.get('/:comment_id/edit', middleware.checkCommentOwnership ,function(req, res) { 
 	Activity.findById(req.params.id, function(err, foundActivity) { 
 		if (err || !foundActivity) { 
@@ -57,7 +57,7 @@ router.get('/:comment_id/edit', middleware.checkCommentOwnership ,function(req, 
 	})
 })
 
-// update
+// update (change the comment)
 router.put('/:comment_id', middleware.checkCommentOwnership, function(req, res) { 
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, comment) { 
 		if (err) {
@@ -68,7 +68,7 @@ router.put('/:comment_id', middleware.checkCommentOwnership, function(req, res) 
 	})
 })
 
-// destroy
+// destroy the comment
 router.delete('/:comment_id', middleware.checkCommentOwnership, function(req, res) { 
 	Comment.findByIdAndRemove(req.params.comment_id, function(err) { 
 		if (err) { 
@@ -80,4 +80,5 @@ router.delete('/:comment_id', middleware.checkCommentOwnership, function(req, re
 	})
 })
 
+// export
 module.exports = router

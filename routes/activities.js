@@ -4,7 +4,7 @@ const Activity = require('../models/activity')
 const Comment = require('../models/comment')
 const middleware = require('../middleware')
 
-// index
+// index (show all activities)
 router.get("/", function(req, res) { 
 	Activity.find({}, function(err, activities) { 
 		if (err) { 
@@ -15,7 +15,7 @@ router.get("/", function(req, res) {
 	} )
 })
 
-// create
+// create an activity
 router.post("/", middleware.isLoggedIn, function(req, res) { 
 	const name = req.body.name
 	const image = req.body.image
@@ -34,12 +34,12 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 	})
 })
 
-// new
+// new (show form to create activity)
 router.get("/new", middleware.isLoggedIn, function(req, res) { 
 	res.render("activities/new")
 })
 
-// show
+// show an activity
 router.get("/:id", function(req, res) { 
 	Activity.findById(req.params.id).populate('comments').exec(function(err, activity) { 
 		if (err || !activity) { 
@@ -51,14 +51,14 @@ router.get("/:id", function(req, res) {
 	})
 } )
 
-// edit
+// edit (show form for updating middleware) 
 router.get('/:id/edit', middleware.checkActivityOwnership, function(req, res) {
 	Activity.findById(req.params.id, function(err, foundActivity) { 
 		res.render('activities/edit', {activity: foundActivity})
 	})
 })
 
-// update
+// update the activity
 router.put('/:id', middleware.checkActivityOwnership, function(req, res) { 
 	Activity.findByIdAndUpdate(req.params.id, req.body.activity,function(err, activity) { 
 		if (err) { 
@@ -69,7 +69,7 @@ router.put('/:id', middleware.checkActivityOwnership, function(req, res) {
 	})
 })
 
-// destroy
+// destroy the activity
 router.delete('/:id', middleware.checkActivityOwnership, function(req, res) {
 	Activity.findById(req.params.id, function(err, activity) { 
 		if (err) { 
@@ -96,4 +96,5 @@ router.delete('/:id', middleware.checkActivityOwnership, function(req, res) {
 	})	
 })
 
+// export
 module.exports = router
