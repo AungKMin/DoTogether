@@ -3,7 +3,7 @@
 
 <h2> Summary </h2>
 <p>The website is built with Node.js. Routing is handled with Express (within Node.js). The database is handled with MongoDB (service provider: MongoDB Atlas).</p>
-<p>It is hosted on Heroku: https://thawing-cove-75363.herokuapp.com/ </p> 
+<p>It is hosted on Heroku: https://dotogetherofficial.herokuapp.com/ </p> 
 
 <h2> To run locally, you need: </h2>
 <ul>
