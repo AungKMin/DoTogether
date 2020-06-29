@@ -36,12 +36,34 @@ router.get('/login', function(req, res) {
 })
 
 // login logic
-router.post('/login', passport.authenticate('local', {
-	successRedirect: '/activities',
-	failureRedirect: '/login',
-	failureFlash: true
-}), function(req, res) { 
+router.post('/login', function(req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+		if (err) { 
+			req.flash('error', err)
+			return next(err)
+		}
+		if (!user) { 
+			req.flash('error', info.message)
+			return res.redirect('/login')
+		}
+		req.logIn(user, function(err) { 
+			if (err) { 
+				req.flash('error', err)
+				return next(err)
+			}
+			return res.redirect(req.session.returnTo || '/activities')
+			delete req.session.returnTo
+		})
+	})(req, res, next); 
 })
+
+// -- resort to this for login logic if the above fails (but this doesn't redirect you back to the last page, it redirects you to activities)
+//router.post('/login', passport.authenticate('local', {
+	//successRedirect: '/activities',
+	//failureRedirect: '/login',
+	//failureFlash: true
+//}), function(req, res) { 
+//})
 
 // logout
 router.get('/logout', function(req, res) { 
