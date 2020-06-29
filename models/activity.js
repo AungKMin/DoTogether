@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 
 const activitySchema = new mongoose.Schema({
 	name: String,
-	image: {type: String, default: "https://blog.bit.ai/wp-content/uploads/2018/01/Team-Activity-Asset-3-bit.ai_.png"},
+	image: String,
 	description: String,
+	dateCreated: {type: Date, default: Date.now},
 	author: { 
 		id: { 
 			type: mongoose.Schema.Types.ObjectId,

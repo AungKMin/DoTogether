@@ -34,6 +34,10 @@ app.use(require('express-session')({
 	resave: false, 
 	saveUninitialized: false
 }))
+
+// add moment to deal with date
+app.locals.moment = require('moment')
+
 // set up passport
 app.use(passport.initialize())
 app.use(passport.session())
