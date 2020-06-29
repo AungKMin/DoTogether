@@ -10,3 +10,12 @@
 .delete-form { 
 	display : inline;
 }
+
+.title { 
+	text-align: center;
+}
+
+.form-box { 
+	width: 30%;
+	margin: 25px auto;
+} 

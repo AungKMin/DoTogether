@@ -2,8 +2,8 @@
 
 <div class="container"> 
 	<div clas="row">
-		<h1 style="text-align: center"> Edit <%= activity.name %> </h1>
-		<div style="width: 30%; margin: 25px auto;">
+		<h1 class="title"> Edit <%= activity.name %> </h1>
+		<div class="form-box">
 			<form action="/activities/<%= activity._id %>?_method=PUT" method="POST">
 				<div class="form-group">
 					<input type="text" class="form-control" name="activity[name]" value="<%=activity.name%>">

@@ -2,8 +2,8 @@
 
 <div class="container"> 
 	<div clas="row">
-		<h1 style="text-align: center"> Tell the poster you're interested! - <%= activity.name %> </h1>
-		<div style="width: 30%; margin: 25px auto;">
+		<h1 class="title"> Tell the poster you're interested! - <%= activity.name %> </h1>
+		<div class="form-box">
 			<form action="/activities/<%= activity._id %>/comments" method="POST">
 				<div class="form-group">
 					<input type="text" class="form-control" name="comment[text]" placeholder="tell the poster you're interested!">
