@@ -17,7 +17,14 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", function(req, res) { 
-	let newUser = new User({username: req.body.username})
+	let newUser = new User({
+			username: req.body.username,
+			firstName: req.body.firstName, 
+			lastName: req.body.lastName, 
+			avatar: req.body.avatar, 
+			email: req.body.email,
+			bio: req.body.bio
+		})
 	User.register(newUser, req.body.password, function(err, user) { 
 		if (err) { 
 			req.flash('error', err.message)	
@@ -71,6 +78,18 @@ router.get('/logout', function(req, res) {
 	req.flash('success', 'You logged out!')
 	res.redirect('/activities')
 })
+
+// Profile
+router.get('/users/:id', function(req, res) { 
+	User.findById(req.params.id, function(err, foundUser) { 
+		if (err) { 
+			req.flash(error, 'User not found')
+			res.redirect('back')
+		} else { 
+			res.render('users/show', {user: foundUser})
+		}
+	})
+}) 
 
 // exports
 module.exports = router

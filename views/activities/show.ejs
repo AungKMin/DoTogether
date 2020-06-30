@@ -18,7 +18,7 @@
 					<h2><a><%= activity.name %></a></h2> 
 					<p><%= activity.description %></p>
 					<p>
-						<em> Subbmitted by: <%= activity.author.username %>, <%=moment(activity.dateCreated).fromNow()%> </em>
+						<em> Subbmitted by: <a href="/users/<%=activity.author.id%>"><%= activity.author.username %></a>, <%=moment(activity.dateCreated).fromNow()%> </em>
 					</p>
 					<% if (currentUser && activity.author.id.equals(currentUser._id)) { %>
 							<a class="btn btn-s btn-warning" href="/activities/<%=activity._id%>/edit">Edit Post</a>
