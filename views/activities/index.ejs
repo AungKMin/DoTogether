@@ -28,6 +28,8 @@
 							<h3> <%= activity.name %> </h3>
 							<h4> by <%= activity.author.username %> </h4>
 							<p> posted <%= moment(activity.dateCreated).fromNow() %> </p>
+							<p> Happening: <%= activity.date %></p>
+							<p> <%= activity.description.length > 50 ? activity.description.substring(0, 50) + '...' : activity.description%> </p>
 						</div>
 						<p>
 							<a href="/activities/<%= activity._id %>" class="btn btn-primary">More Info</a>
