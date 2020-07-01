@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 const User = require('../models/user')
+const Activity = require('../models/activity')
 
 // root
 router.get("/", function(req, res) { 
@@ -81,7 +82,7 @@ router.get('/logout', function(req, res) {
 
 // Profile
 router.get('/users/:id', function(req, res) { 
-	User.findById(req.params.id, function(err, foundUser) { 
+	User.findById(req.params.id).populate('activities').exec(function(err, foundUser) { 
 		if (err) { 
 			req.flash(error, 'User not found')
 			res.redirect('back')

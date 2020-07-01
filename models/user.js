@@ -8,7 +8,19 @@ const UserSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String, 
 	email: String,
-	bio: String
+	bio: String,
+	activities: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Activity'
+		}
+	]
+ /* comments: [*/
+		//{
+			//type: mongoose.Schema.Types.ObjectId,
+			//ref: 'Comment'
+		//}
+	/*]*/
 })
 
 UserSchema.plugin(passportLocalMongoose)

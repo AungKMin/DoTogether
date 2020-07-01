@@ -11,8 +11,13 @@
 		</div>
 		<p><%=user.bio%></p>
 	</div>
-	<div class="col-md-8"> </div>
-			
+	<div class="col-md-8"> 
+		<h3>Posted Activities</h3>
+			<ul>
+				<% user.activities.forEach(function(activity) { %>
+					<li><a href="/activities/<%=activity.id%>"><%= activity.name %>, posted <%=moment(activity.dateCreated).fromNow()%></a></li>
+				<% })%>
+			</ul>
 	</div> 
 </div>
 

@@ -16,6 +16,7 @@ router.get("/", function(req, res) {
 })
 
 // create an activity
+
 router.post("/", middleware.isLoggedIn, function(req, res) { 
 	const name = req.body.name
 	const image = req.body.image
@@ -29,10 +30,31 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 		if (err) { 
 			console.log(err)
 		} else { 
+			req.user.activities.push(newlyCreated)
+			req.user.save()
+			req.flash('success', 'Successfully posted Activity')
 			res.redirect('/activities')
 		} 
 	})
 })
+
+/*router.post("/", middleware.isLoggedIn, function(req, res) { */
+	//const name = req.body.name
+	//const image = req.body.image
+	//const description = req.body.description
+	//let author = { 
+		//id: req.user._id, 
+		//username: req.user.username
+	//}
+	//let newActivity = {name: name, image: image, description: description, author: author}
+	//Activity.create(newActivity, function(err, newlyCreated) { 
+		//if (err) { 
+			//console.log(err)
+		//} else { 
+			//res.redirect('/activities')
+		//} 
+	//})
+/*})*/
 
 // new (show form to create activity)
 router.get("/new", middleware.isLoggedIn, function(req, res) { 
