@@ -19,13 +19,14 @@ router.get("/", function(req, res) {
 
 router.post("/", middleware.isLoggedIn, function(req, res) { 
 	const name = req.body.name
+	const date = req.body.date
 	const image = req.body.image
 	const description = req.body.description
 	let author = { 
 		id: req.user._id, 
 		username: req.user.username
 	}
-	let newActivity = {name: name, image: image, description: description, author: author}
+	let newActivity = {name: name, image: image, date: date, description: description, author: author}
 	Activity.create(newActivity, function(err, newlyCreated) { 
 		if (err) { 
 			console.log(err)

@@ -6,6 +6,7 @@ const activitySchema = new mongoose.Schema({
 	image: String,
 	description: String,
 	dateCreated: {type: Date, default: Date.now},
+	date: String,
 	author: { 
 		id: { 
 			type: mongoose.Schema.Types.ObjectId,
