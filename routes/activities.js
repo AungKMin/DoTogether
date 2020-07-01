@@ -6,13 +6,26 @@ const middleware = require('../middleware')
 
 // index (show all activities)
 router.get("/", function(req, res) { 
-	Activity.find({}, function(err, activities) { 
-		if (err) { 
-			console.log(err)
-		} else { 
-			res.render("activities/index", {activities: activities, page: 'activities'})
-		} 
-	} )
+	if(req.query.search){ 
+		// regex for fuzzy search
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		// find the activiites with the regex in its name OR description
+		Activity.find({$or:[{name: regex},{description: regex}]}, function(err, activities) { 
+			if (err) { 
+				console.log(err)
+			} else { 
+				res.render("activities/index", {activities: activities, page: 'activities'})
+			} 
+		})
+	} else { 
+		Activity.find({}, function(err, activities) { 
+			if (err) { 
+				console.log(err)
+			} else { 
+				res.render("activities/index", {activities: activities, page: 'activities'})
+			} 
+		})
+	}
 })
 
 // create an activity
@@ -118,6 +131,11 @@ router.delete('/:id', middleware.checkActivityOwnership, function(req, res) {
 		}
 	})	
 })
+
+//fuzzy search regex function
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 // export
 module.exports = router
