@@ -16,6 +16,10 @@
 				<div class="caption">
 					<h4 class="pull-right"><%=activity.date%></h4>
 					<h2><a><%= activity.name %></a></h2> 
+					<% activity.category.forEach(function(category) {%>
+						<h2 class="label label-primary large"><%=category%></h3>
+					<% })%>
+					<hr>
 					<p><%= activity.description %></p>
 					<p>
 						<em> Subbmitted by: <a href="/users/<%=activity.author.id%>"><%= activity.author.username %></a>, <%=moment(activity.dateCreated).fromNow()%> </em>

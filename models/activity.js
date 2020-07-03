@@ -7,6 +7,7 @@ const activitySchema = new mongoose.Schema({
 	description: String,
 	dateCreated: {type: Date, default: Date.now},
 	date: String,
+	category: [String],
 	author: { 
 		id: { 
 			type: mongoose.Schema.Types.ObjectId,

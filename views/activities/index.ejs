@@ -27,6 +27,9 @@
 						<img src="<%= activity.image %>" onerror="this.src='https://images.unsplash.com/photo-1593007791459-4b05e1158229?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'" alt="An awesome activity" />
 						<div class="caption">
 							<h3> <%= activity.name %> </h3>
+							<% activity.category.forEach(function(category) {%>
+								<h2 class="label label-primary large"><%=category%></h3>
+							<% })%>							
 							<h4> by <%= activity.author.username %> </h4>
 							<p> posted <%= moment(activity.dateCreated).fromNow() %> </p>
 							<p> Happening: <%= activity.date %></p>

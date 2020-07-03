@@ -6,16 +6,24 @@
 		<div class="form-box">
 			<form action="/activities/<%= activity._id %>?_method=PUT" method="POST">
 				<div class="form-group">
-					<input type="text" class="form-control" name="activity[name]" placeholder="Activity Description">
+					<input type="text" class="form-control" name="activity[name]" value="<%=activity.name%>">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="activity[date]" placeholder="When do you want to do the activity?">
+					<input type="text" class="form-control" name="activity[date]" value="<%=activity.date%>">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="activity[image]" placeholder="Image URL">
+					<p> Type of activity </p>
+					<select name="activity[category]" multiple>
+						<% categories.forEach(function(category) { %>
+							<option value="<%=category%>" <%=(activity.category.includes(category)) ? 'selected' : ''%>><%=category%></option>
+						<% }) %>	
+					</select>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="activity[description]" placeholder="description of activity">
+					<input type="text" class="form-control" name="activity[image]" value="<%=activity.image%>">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="activity[description]" value="<%=activity.description%>">
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-lg btn-primary btn-block" value="Post">  

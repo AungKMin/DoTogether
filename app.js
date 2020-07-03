@@ -45,6 +45,9 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
    
+// categories for activities
+let categories = ['Sport', 'Learning', 'Tabletop', 'Gaming', 'Social', 'Other'] 
+
 // add a middleware to every route
 app.use(function(req, res, next) {
 	// pass a user to ejs file
@@ -52,6 +55,8 @@ app.use(function(req, res, next) {
 	// flash error or success
 	res.locals.error = req.flash('error')
 	res.locals.success = req.flash('success')
+	// activity categories 
+	res.locals.categories = categories
 	next()
 })
 

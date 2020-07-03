@@ -35,11 +35,12 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 	const date = req.body.date
 	const image = req.body.image
 	const description = req.body.description
+	const category = req.body.category
 	let author = { 
 		id: req.user._id, 
 		username: req.user.username
 	}
-	let newActivity = {name: name, image: image, date: date, description: description, author: author}
+	let newActivity = {name: name, image: image, date: date, description: description, category: category, author: author}
 	Activity.create(newActivity, function(err, newlyCreated) { 
 		if (err) { 
 			console.log(err)
@@ -96,7 +97,7 @@ router.get('/:id/edit', middleware.checkActivityOwnership, function(req, res) {
 
 // update the activity
 router.put('/:id', middleware.checkActivityOwnership, function(req, res) { 
-	Activity.findByIdAndUpdate(req.params.id, req.body.activity,function(err, activity) { 
+	Activity.findByIdAndUpdate(req.params.id, req.body.activity, function(err, activity) { 
 		if (err) { 
 			res.redirect('/activities')
 		} else { 
