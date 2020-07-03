@@ -12,7 +12,17 @@
 				<form action="/activities" method="GET" class="form-inline"> 
 					<div class="form-group">
 						<input type="text" name="search" placeholder="Search activities" class="form-control">
-						<input type="submit" value="Search" class="btn btn-default">
+					</div>
+					<div class="form-group">
+						<p> Type of activity </p>				
+						<select name="category" multiple>
+							<% categories.forEach(function(category) { %>
+								<option value="<%=category%>"><%=category%></option>
+							<% }) %>	
+						</select>						
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Search" class="btn btn-default">					
 					</div>
 				</form>
 			</p>

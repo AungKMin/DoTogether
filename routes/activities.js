@@ -6,11 +6,11 @@ const middleware = require('../middleware')
 
 // index (show all activities)
 router.get("/", function(req, res) { 
-	if(req.query.search){ 
+	if(req.query.search || req.query.category){ 
 		// regex for fuzzy search
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		// find the activiites with the regex in its name OR description
-		Activity.find({$or:[{name: regex},{description: regex}]}, function(err, activities) { 
+		Activity.find({$or:[{name: regex},{description: regex}], category: req.query.category}, function(err, activities) { 
 			if (err) { 
 				console.log(err)
 			} else { 
@@ -29,7 +29,6 @@ router.get("/", function(req, res) {
 })
 
 // create an activity
-
 router.post("/", middleware.isLoggedIn, function(req, res) { 
 	const name = req.body.name
 	const date = req.body.date
