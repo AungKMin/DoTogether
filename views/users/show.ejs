@@ -12,7 +12,9 @@
 		<p><%=user.bio%></p>
 	</div>
 	<div class="col-md-8"> 
-		<a class="btn btn-primary btn-large" href="/activities/new">Post an activity</a>
+		<% if (currentUser && user._id.equals(currentUser._id)) { %>
+			<a class="btn btn-primary btn-large" href="/activities/new">Post an activity</a>
+		<% } %>
 		<h3>Posted Activities</h3>
 			<ul>
 				<% user.activities.forEach(function(activity) { %>
