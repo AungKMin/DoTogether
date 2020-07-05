@@ -11,10 +11,22 @@ router.get("/", function(req, res) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		// find the activiites with the regex in its name OR description
 		//console.log({$setIntersection:[category, req.query.category]})
-		Activity.find({$or:[{name: regex},{description: regex},{category:req.query.category}]}, function(err, activities) { 
+		Activity.find({$or:[{name: regex},{description: regex}/*,{category:req.query.category}*/]}, function(err, activities) { 
 			if (err) { 
 				console.log(err)
 			} else { 
+				// filter the activities returned to the ones that contain all the categories the user searched
+				if (req.query.category) {
+					// if there is only one category selected, make it into an array
+					if (typeof req.query.category === 'string') { 
+						req.query.category = [req.query.category]
+					} 
+					activities = activities.filter(activity =>  
+						req.query.category.every(cat =>  
+							activity.category.includes(cat)
+						) 
+					)
+				}
 				res.render("activities/index", {activities: activities, page: 'activities'})
 			} 
 		})
