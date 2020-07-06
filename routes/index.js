@@ -144,7 +144,7 @@ router.post('/forgot', function(req, res, next) {
 
 // password reset form
 router.get('/reset/:token', function(req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
       return res.redirect('/forgot');
@@ -157,7 +157,7 @@ router.get('/reset/:token', function(req, res) {
 router.post('/reset/:token', function(req, res) {
   async.waterfall([
     function(done) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+			User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
           return res.redirect('back');
@@ -200,7 +200,9 @@ router.post('/reset/:token', function(req, res) {
       });
     }
   ], function(err) {
-		req.flash('error', 'Something went wrong.')
+		if (err) { 
+			req.flash('error', 'Something went wrong.')
+		}
     res.redirect('/activities');
   });
 });
