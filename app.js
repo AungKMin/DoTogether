@@ -65,6 +65,10 @@ app.use('/activities', activityRoutes)
 app.use('/activities/:id/comments', commentRoutes)
 app.use(indexRoutes)
 
+app.get('*', function(req, res) { 
+	res.status(404).render('404')
+})
+
 // port
 let port = process.env.PORT || '3000'
 app.listen(port, process.env.IP, function() { 
