@@ -57,5 +57,21 @@ middlewareObj.checkCommentOwnership = function checkCommentOwnership(req, res, n
 	}
 }
 
+// does the user own the profile page 
+middlewareObj.checkProfileOwnership = function checkProfileOwnership(req, res, next) { 
+	if (req.isAuthenticated()) { 
+		if (req.user._id.equals(req.params.id)) { 
+			next()
+		} else { 
+			req.flash('error', "You don't have permission to do that!")
+			res.redirect('back')
+		}
+	} else { 
+		req.flash('error', 'You need to be logged in to do that!')
+		res.redirect('back')	
+	}
+}
+
+
 // exports
 module.exports = middlewareObj

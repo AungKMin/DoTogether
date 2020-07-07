@@ -14,7 +14,8 @@ const express = require('express'),
 // requring routes
 const activityRoutes = require('./routes/activities'),
 	commentRoutes = require('./routes/comments'),
-	indexRoutes = require('./routes/index')
+	indexRoutes = require('./routes/index'),
+	userRoutes = require('./routes/users')
 
 // connect to MongoDB service 
 let url = process.env.DATABASEURL || 'mongodb://localhost:27017/test_together' 
@@ -64,6 +65,7 @@ app.use(function(req, res, next) {
 app.use('/activities', activityRoutes)
 app.use('/activities/:id/comments', commentRoutes)
 app.use(indexRoutes)
+app.use('/users', userRoutes)
 
 app.get('*', function(req, res) { 
 	res.status(404).render('404')

@@ -22,12 +22,16 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", function(req, res) { 
+	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+		req.flash('error', 'One or more required fields empty')
+		return res.redirect('back')
+	}
 	let newUser = new User({
-			username: req.body.username,
-			firstName: req.body.firstName, 
-			lastName: req.body.lastName, 
-			avatar: req.body.avatar, 
-			email: req.body.email,
+			username: req.body.username.trim(),
+			firstName: req.body.firstName.trim(), 
+			lastName: req.body.lastName.trim(), 
+			avatar: req.body.avatar.trim(), 
+			email: req.body.email.trim(),
 			bio: req.body.bio
 		})
 	User.register(newUser, req.body.password, function(err, user) { 

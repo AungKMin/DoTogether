@@ -100,7 +100,7 @@ router.get("/:id", function(req, res) {
 	})
 } )
 
-// edit (show form for updating middleware) 
+// edit (show form for updating activity) 
 router.get('/:id/edit', middleware.checkActivityOwnership, function(req, res) {
 	Activity.findById(req.params.id, function(err, foundActivity) { 
 		res.render('activities/edit', {activity: foundActivity})
