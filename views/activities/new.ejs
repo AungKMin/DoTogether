@@ -4,26 +4,27 @@
 	<div clas="row">
 		<h1 class="title"> Post a new activitiy </h1>
 		<div class="form-box">
-			<form action="/activities" method="POST">
+			<form action="/activities" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
-					<input type="text" class="form-control" name="name" placeholder="Activity Description">
+					<input type="text" class="form-control" name="activity[name]" placeholder="Activity Description">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="date" placeholder="When do you want to do the activity?">
+					<input type="text" class="form-control" name="activity[date]" placeholder="When do you want to do the activity?">
 				</div>
 				<div class="form-group">
 					<p> Type of activity </p>				
-					<select name="category" multiple>
+					<select name="activity[category]" multiple>
 						<% categories.forEach(function(category) { %>
 							<option value="<%=category%>"><%=category%></option>
 						<% }) %>	
 					</select>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="image" placeholder="Image URL">
+					<label for="image">Image</label>
+					<input type="file" id="image" class="form-control" name="image" accept="image/*">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="description" placeholder="description of activity">
+					<input type="text" class="form-control" name="activity[description]" placeholder="description of activity">
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-lg btn-primary btn-block" value="Post">  

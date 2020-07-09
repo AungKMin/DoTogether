@@ -3,6 +3,29 @@ const router = express.Router()
 const Activity = require('../models/activity')
 const Comment = require('../models/comment')
 const middleware = require('../middleware')
+const multer = require('multer');
+require('dotenv').config()
+
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // look for .image_file_name at the end of the file name (case insensitive)
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'dl4dkmste', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // index (show all activities)
 router.get("/", function(req, res) { 
@@ -42,27 +65,44 @@ router.get("/", function(req, res) {
 })
 
 // create an activity
-router.post("/", middleware.isLoggedIn, function(req, res) { 
-	const name = req.body.name
-	const date = req.body.date
-	const image = req.body.image
-	const description = req.body.description
-	const category = req.body.category
-	let author = { 
-		id: req.user._id, 
-		username: req.user.username
+router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) { 
+	if (req.file) { 
+		cloudinary.uploader.upload(req.file.path, function(err, result) {
+			if (err) { 
+				console.log(err);
+				req.flash('error', err.message);
+				return res.redirect('back')
+			}
+			// add cloudinary url for the image to the activity object under image property
+			req.body.activity.image = result.secure_url;
+			// add author to activity
+			req.body.activity.author = {
+				id: req.user._id,
+				username: req.user.username
+			}
+			Activity.create(req.body.activity, function(err, activity) {
+				if (err) {
+					req.flash('error', err.message);
+					return res.redirect('back');
+				}
+				req.flash('success', 'Activity posted!')
+				res.redirect('/activities/' + activity.id);
+			});
+		});
+	} else { 
+		req.body.activity.author = {
+			id: req.user._id,
+			username: req.user.username
+		}
+		Activity.create(req.body.activity, function(err, activity) { 
+			if (err) { 
+				req.flash('error', err.emssage)
+				return res.redirect('back')
+			}
+			req.flash('success', 'Activity posted!')
+			res.redirect('/activities/' + activity.id)
+		})
 	}
-	let newActivity = {name: name, image: image, date: date, description: description, category: category, author: author}
-	Activity.create(newActivity, function(err, newlyCreated) { 
-		if (err) { 
-			console.log(err)
-		} else { 
-			req.user.activities.push(newlyCreated)
-			req.user.save()
-			req.flash('success', 'Successfully posted Activity')
-			res.redirect('/activities')
-		} 
-	})
 })
 
 /*router.post("/", middleware.isLoggedIn, function(req, res) { */
