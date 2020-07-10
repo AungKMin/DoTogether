@@ -6,7 +6,29 @@ const Activity = require('../models/activity')
 const async = require('async')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
+const multer = require('multer');
 require('dotenv').config()
+
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // look for .image_file_name at the end of the file name (case insensitive)
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'dl4dkmste', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // root
 router.get("/", function(req, res) { 
@@ -21,29 +43,61 @@ router.get("/register", function(req, res) {
 })
 
 // sign up logic
-router.post("/register", function(req, res) { 
-	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
-		req.flash('error', 'One or more required fields empty')
-		return res.redirect('back')
-	}
-	let newUser = new User({
-			username: req.body.username.trim(),
-			firstName: req.body.firstName.trim(), 
-			lastName: req.body.lastName.trim(), 
-			avatar: req.body.avatar.trim(), 
-			email: req.body.email.trim(),
-			bio: req.body.bio
+router.post("/register", upload.single('image'), function(req, res) { 
+	if (req.file) {
+		cloudinary.uploader.upload(req.file.path, function(err, result) { 
+			if (err) { 
+				console.log(err)
+				req.flash('error', err.message)
+				return res.redirect('back')
+			}
+			if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+				req.flash('error', 'One or more required fields empty')
+				return res.redirect('back')
+			}
+			let newUser = new User({
+					username: req.body.username.trim(),
+					firstName: req.body.firstName.trim(), 
+					lastName: req.body.lastName.trim(), 
+					avatar: result.secure_url,
+					avatarId: result.public_id,
+					email: req.body.email.trim(),
+					bio: req.body.bio
+				})
+			User.register(newUser, req.body.password, function(err, user) { 
+				if (err) { 
+					req.flash('error', err.message)	
+					return res.redirect('register')
+				}
+				passport.authenticate('local')(req, res, function() { 
+					req.flash('success', 'Welcome to DoTogether ' + user.username)
+					res.redirect('/verify')
+				})
+			})
 		})
-	User.register(newUser, req.body.password, function(err, user) { 
-		if (err) { 
-			req.flash('error', err.message)	
-			return res.redirect('register')
+	} else { 
+		if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+			req.flash('error', 'One or more required fields empty')
+			return res.redirect('back')
 		}
-		passport.authenticate('local')(req, res, function() { 
-			req.flash('success', 'Welcome to DoTogether ' + user.username)
-			res.redirect('/verify')
+		let newUser = new User({
+				username: req.body.username.trim(),
+				firstName: req.body.firstName.trim(), 
+				lastName: req.body.lastName.trim(), 
+				email: req.body.email.trim(),
+				bio: req.body.bio
+			})
+		User.register(newUser, req.body.password, function(err, user) { 
+			if (err) { 
+				req.flash('error', err.message)	
+				return res.redirect('register')
+			}
+			passport.authenticate('local')(req, res, function() { 
+				req.flash('success', 'Welcome to DoTogether ' + user.username)
+				res.redirect('/verify')
+			})
 		})
-	})
+	}
 })
 
 // login form

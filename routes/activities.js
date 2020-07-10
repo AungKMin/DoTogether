@@ -171,7 +171,7 @@ router.put('/:id', middleware.checkActivityOwnership, upload.single('image'), fu
 			activity.description = req.body.activity.description
 			activity.date = req.body.activity.date
 			activity.category = req.body.activity.category
-			activity.save()
+			await activity.save()
 			req.flash('success', 'Successfully updated activity')
 			res.redirect('/activities/' + req.params.id)
 		}
