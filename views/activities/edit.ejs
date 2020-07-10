@@ -4,7 +4,7 @@
 	<div clas="row">
 		<h1 class="title"> Edit <%= activity.name %> </h1>
 		<div class="form-box">
-			<form action="/activities/<%= activity._id %>?_method=PUT" method="POST">
+			<form action="/activities/<%= activity._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<input type="text" class="form-control" name="activity[name]" value="<%=activity.name%>">
 				</div>
@@ -20,8 +20,8 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" name="activity[image]" value="<%=activity.image%>">
-				</div>
+					<label for="image">Image</label>
+					<input type="file" id="image" class="form-control" name="image" accept="image/*">
 				<div class="form-group">
 					<input type="text" class="form-control" name="activity[description]" value="<%=activity.description%>">
 				</div>

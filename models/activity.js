@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const activitySchema = new mongoose.Schema({
 	name: String,
 	image: String,
+	imageId: String,
 	description: String,
 	dateCreated: {type: Date, default: Date.now},
 	date: String,

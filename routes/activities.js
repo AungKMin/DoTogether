@@ -76,6 +76,7 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
 			// add cloudinary url for the image to the activity object under image property
 			req.body.activity.image = result.secure_url;
 			// add author to activity
+			req.body.activity.imageId = result.public_id;
 			req.body.activity.author = {
 				id: req.user._id,
 				username: req.user.username
@@ -148,11 +149,30 @@ router.get('/:id/edit', middleware.checkActivityOwnership, function(req, res) {
 })
 
 // update the activity
-router.put('/:id', middleware.checkActivityOwnership, function(req, res) { 
-	Activity.findByIdAndUpdate(req.params.id, req.body.activity, function(err, activity) { 
+router.put('/:id', middleware.checkActivityOwnership, upload.single('image'), function(req, res) { 
+	Activity.findById(req.params.id, req.body.activity, async function(err, activity) { 
 		if (err) { 
-			res.redirect('/activities')
+			req.flash('error', err.message)
+			res.redirect('back')
 		} else { 
+			if (req.file) { 
+				try { 
+					await cloudinary.uploader.destroy({public_id: activity.imageId}) 
+					let result = await cloudinary.uploader.upload(req.file.path) 
+					activity.imageId = result.public_id
+					activity.image = result.secure_url
+				} catch(err) { 
+					console.log(err)
+					req.flash('error', err.message)
+					return res.redirect('back')
+				}
+			}
+			activity.name = req.body.activity.name
+			activity.description = req.body.activity.description
+			activity.date = req.body.activity.date
+			activity.category = req.body.activity.category
+			activity.save()
+			req.flash('success', 'Successfully updated activity')
 			res.redirect('/activities/' + req.params.id)
 		}
 	})
@@ -160,29 +180,25 @@ router.put('/:id', middleware.checkActivityOwnership, function(req, res) {
 
 // destroy the activity
 router.delete('/:id', middleware.checkActivityOwnership, function(req, res) {
-	Activity.findById(req.params.id, function(err, activity) { 
+	Activity.findById(req.params.id, async function(err, activity) { 
 		if (err) { 
 			console.log(err)
-			res.redirect('/activities')
-		} else {
-			activity.comments.forEach(function(comment) { 
-				Comment.findByIdAndRemove(comment, function(err) { 
-					if (err) { 
-						console.log(err)
-						res.redirect('/activities')
-					} else { 
-					}
-				})
+			req.flash('error', err.message)
+			return res.redirect('back')
+		} 
+		try {
+			activity.comments.forEach(async function(comment) { 
+				await Comment.findByIdAndRemove(comment)
 			})
+			await cloudinary.uploader.destroy(activity.imageId)
+			await activity.remove()
+			req.flash('success', 'Activity deleted')
+			res.redirect('/activities')
+		} catch (err) { 
+			req.flash('error', err.message)
+			return res.redirect('back')
 		}
 	})
-	Activity.findByIdAndRemove(req.params.id, function(err) { 
-		if (err) { 
-			res.redirect('/activities')
-		} else { 
-			res.redirect('/activities')
-		}
-	})	
 })
 
 //fuzzy search regex function
