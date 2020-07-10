@@ -22,16 +22,16 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 			console.log(err)
 			redirect('/activities')
 		} else { 
-			Comment.create(req.body.comment, function(err, comment) { 
+			Comment.create(req.body.comment, async function(err, comment) { 
 				if (err) { 
 					req.flash('error', 'Something went wrong')
 					console.log(err)
 				} else { 
 					comment.author.id = req.user._id
 					comment.author.username = req.user.username
-					comment.save()
+					await comment.save()
 					activity.comments.push(comment)
-					activity.save()
+					await activity.save()
 					req.flash('success', 'Successfully added comment')
 					res.redirect('/activities/' + req.params.id)
 				}
