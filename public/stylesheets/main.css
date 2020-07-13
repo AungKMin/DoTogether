@@ -19,3 +19,8 @@
 	width: 30%;
 	margin: 25px auto;
 } 
+
+html, body { 
+	margin: 0;
+	height: 100%;
+}
