@@ -26,7 +26,7 @@
 					</p>
 					<% if (currentUser && activity.author.id._id.equals(currentUser._id)) { %>
 							<a class="btn btn-s btn-warning" href="/activities/<%=activity._id%>/edit">Edit Post</a>
-							<form class="delete-form" action='/activities/<%= activity._id %>?_method=DELETE' method='POST'> 
+							<form class="delete-form" action='/activities/<%= activity._id %>?_method=DELETE' method='POST' onsubmit="return confirm('Are you sure you want to delete comment?');"> 
 							<input class="btn btn-s btn-danger" type="submit" value="Delete">
 						</form>
 					<% } %>
@@ -48,7 +48,7 @@
 							<% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
 								<a class="btn btn-xs btn-warning" 
 									href="/activities/<%=activity._id%>/comments/<%=comment._id%>/edit">Edit Comment</a>
-								<form class="delete-form" action="/activities/<%=activity._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+								<form class="delete-form" action="/activities/<%=activity._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete comment?');">
 									<button class="btn btn-xs btn-danger">Delete</button>
 								</form>
 							<% } %>
