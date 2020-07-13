@@ -131,7 +131,8 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 
 // show an activity
 router.get("/:id", function(req, res) { 
-	Activity.findById(req.params.id).populate('comments').exec(function(err, activity) { 
+	Activity.findById(req.params.id).populate('author.id').populate('comments').exec(function(err, activity) { 
+		console.log(activity)
 		if (err || !activity) { 
 			req.flash('error', 'Activity not found')
 			res.redirect('back')

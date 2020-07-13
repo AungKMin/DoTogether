@@ -6,7 +6,7 @@
 			<p class="lead">DoTogether</p>
 			<div class="list-group">
 				<a href="/activities"><li class="list-group-item active">Go Back to Activities</li></a>
-				<a href="/users/<%=activity.author.id%>"><li class="list-group-item">View the author of this post: <%= activity.author.username %></li></a>
+				<a href="/users/<%=activity.author.id._id%>"><li class="list-group-item">View the author of this post: <%= activity.author.username %></li></a>
 				<a href="/activities/new"><li class="list-group-item">Post your own activity</li></a>
 			</div>
 		</div>
@@ -22,9 +22,9 @@
 					<hr>
 					<p><%= activity.description %></p>
 					<p>
-						<em> Subbmitted by: <a href="/users/<%=activity.author.id%>"><%= activity.author.username %></a>, <%=moment(activity.dateCreated).fromNow()%> </em>
+						<em> Subbmitted by: <a href="/users/<%=activity.author.id._id%>"><img style="height: 40px; width: 40px;display:inline;" src="<%=activity.author.id.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture"><%= activity.author.id.firstName + ' ' + activity.author.id.lastName%> aka <%= activity.author.username %></a>, <%=moment(activity.dateCreated).fromNow()%> </em>
 					</p>
-					<% if (currentUser && activity.author.id.equals(currentUser._id)) { %>
+					<% if (currentUser && activity.author.id._id.equals(currentUser._id)) { %>
 							<a class="btn btn-s btn-warning" href="/activities/<%=activity._id%>/edit">Edit Post</a>
 							<form class="delete-form" action='/activities/<%= activity._id %>?_method=DELETE' method='POST'> 
 							<input class="btn btn-s btn-danger" type="submit" value="Delete">
