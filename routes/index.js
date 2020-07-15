@@ -44,15 +44,15 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", upload.single('image'), function(req, res) { 
+	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+		req.flash('error', 'One or more required fields empty')
+		return res.redirect('back')
+	}
 	if (req.file) {
 		cloudinary.uploader.upload(req.file.path, function(err, result) { 
 			if (err) { 
 				console.log(err)
 				req.flash('error', err.message)
-				return res.redirect('back')
-			}
-			if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
-				req.flash('error', 'One or more required fields empty')
 				return res.redirect('back')
 			}
 			let newUser = new User({
