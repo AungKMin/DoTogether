@@ -26,6 +26,9 @@
 						<ul class="nav navbar-nav">
 							<li class="<%= typeof page !== 'undefined' && page === 'activities' ? 'active' : '' %>"><a href="/activities">Home</a></li>
 							<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfAC08sCa2NJPg0m3_HFHhtUeCPO-xUUHL9uNRX8FBzYU12Og/viewform?usp=sf_link" target="blank">Give us Feedback!</a></li>
+							<% if (currentUser) { %>
+								<li><a href="/t/entry">Messages</a></li>
+							<% } %>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 								<% if(!currentUser){ %>
