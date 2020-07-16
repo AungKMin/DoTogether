@@ -27,14 +27,14 @@
 					<% if (currentUser && activity.author.id._id.equals(currentUser._id)) { %>
 							<a class="btn btn-s btn-warning" href="/activities/<%=activity._id%>/edit">Edit Post</a>
 							<form class="delete-form" action='/activities/<%= activity._id %>?_method=DELETE' method='POST' onsubmit="return confirm('Are you sure you want to delete activity?');"> 
-							<input class="btn btn-s btn-danger" type="submit" value="Delete">
-						</form>
+								<input class="btn btn-s btn-danger" type="submit" value="Delete">
+							</form>
 					<% } %>
 				</div>
 			</div>	
 			<div class="well">
 				<div class="text-right">
-					<a class="btn btn-success" href="/activities/<%=activity._id%>/comments/new">Tell the poster you're interested!</a>  
+					<a class="btn btn-success" href="/activities/<%=activity._id%>/comments/new">Comment</a>  
 				</div>
 				<hr>
 				<% activity.comments.forEach(function (comment) { %>
