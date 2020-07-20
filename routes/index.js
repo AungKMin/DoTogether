@@ -62,7 +62,8 @@ router.post("/register", upload.single('image'), function(req, res) {
 					avatar: result.secure_url,
 					avatarId: result.public_id,
 					email: req.body.email.trim(),
-					bio: req.body.bio
+					bio: req.body.bio,
+					conversations: []
 				})
 			User.register(newUser, req.body.password, function(err, user) { 
 				if (err) { 
@@ -85,7 +86,8 @@ router.post("/register", upload.single('image'), function(req, res) {
 				firstName: req.body.firstName.trim(), 
 				lastName: req.body.lastName.trim(), 
 				email: req.body.email.trim(),
-				bio: req.body.bio
+				bio: req.body.bio,
+				conversations: []
 			})
 		User.register(newUser, req.body.password, function(err, user) { 
 			if (err) { 
@@ -384,18 +386,6 @@ router.post('/verify/:token', function(req, res) {
 });
 
 
-
-// Profile
-router.get('/users/:id', function(req, res) { 
-	User.findById(req.params.id).populate('activities').exec(function(err, foundUser) { 
-		if (err || !foundUser) { 
-			req.flash('error', 'User not found')
-			res.redirect('back')
-		} else { 
-			res.render('users/show', {user: foundUser})
-		}
-	})
-}) 
 
 // exports
 module.exports = router
