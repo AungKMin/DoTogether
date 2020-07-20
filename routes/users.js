@@ -36,7 +36,6 @@ router.get('/:id', function(req, res) {
 			req.flash('error', 'User not found')
 			res.redirect('back')
 		} else { 
-			console.log(foundUser.activities)
 			res.render('users/show', {user: foundUser})
 		}
 	})
