@@ -107,7 +107,7 @@ io.on('connection', (socket) => {
 	// user disconnects
 	socket.on('disconnect', () => { 
 		for (const username in name_id_dict) { 
-			if (name_id_dict[username].socketid === socket.id) { 
+			if (name_id_dict[username] && name_id_dict[username].socketid === socket.id) { 
 				console.log(username + ' disconnected')
 				name_id_dict[username] = null
 				break
