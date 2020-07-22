@@ -91,10 +91,10 @@ io.on('connection', (socket) => {
 	socket.on('username', ({username, to}) => { 
 		console.log('User connect: ' + username + ' to ' + to)
 		if (!name_id_dict[username]) { 
-			name_id_dict[username] = {socketids: [socket.id], to: to}
+			name_id_dict[username] = {socketids: [socket.id], tos: [to]}
 		} else { 
 			name_id_dict[username].socketids.push(socket.id)
-			name_id_dict[username].to = to
+			name_id_dict[username].tos.push(to)
 		}
 		console.log(name_id_dict)
 	})
@@ -102,13 +102,26 @@ io.on('connection', (socket) => {
 	// receive the message
 	socket.on('message', message => { 
 		fullMessage = {...message, time: moment(Date.now()).format("YYYY-MM-DD HH:mm a")}
-		name_id_dict[message.from].socketids.forEach((socketid) => { 
-			io.to(socketid).emit('message', fullMessage)
-		})
-		if (name_id_dict[message.to] && message.from === name_id_dict[message.to].to) { 
-			name_id_dict[message.to].socketids.forEach((socketid) => { 
-				io.to(socketid).emit('message', fullMessage)
-			})
+
+		// Sending user stuff 
+		for (let i = 0; i < name_id_dict[message.from].socketids.length; i++) { 
+			if (message.to === name_id_dict[message.from].tos[i]) { 
+				io.to(name_id_dict[message.from].socketids[i]).emit('message', fullMessage)
+			}
+		}
+
+		// Receiving user stuff
+		if (name_id_dict[message.to]) {
+			// If the receiving user is online, 
+			for (let i = 0; i < name_id_dict[message.to].socketids.length; i++) {
+				// Update the websockets that are currently on this conversation
+				if (message.from === name_id_dict[message.to].tos[i]) { 
+					io.to(name_id_dict[message.to].socketids[i]).emit('message', fullMessage)
+				// Update the websockets that are not on this conversation with notifications
+				} else { 
+					io.to(name_id_dict[message.to].socketids[i]).emit('notification', message.from)
+				}
+			}
 		}
 		console.log(message.from + ' to ' + message.to + ': ' + message.text)
 	})
@@ -125,6 +138,7 @@ io.on('connection', (socket) => {
 					// delete the one socket 
 					const deleteIndex = name_id_dict[username].socketids.indexOf(socket.id)
 					name_id_dict[username].socketids.splice(deleteIndex, 1)
+					name_id_dict[username].tos.splice(deleteIndex, 1)
 				}
 				break
 			}

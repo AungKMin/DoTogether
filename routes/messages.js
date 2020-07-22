@@ -23,6 +23,9 @@ router.get('/message/:index', middleware.isLoggedIn, function(req, res) {
 			console.log(err)
 			return res.redirect('back')
 		} 
+		// set conversation checked to true
+		req.user.conversations[Number(req.params.index)].numUnchecked = 0
+		req.user.save()
 		res.render('messages/chatroom', {conversations: req.user.conversations, currentConversation: conversation, index: req.params.index})
 	})
 })
@@ -77,20 +80,31 @@ router.post('/message/send/:index', function(req, res) {
 	if (!req.user.conversations[Number(req.params.index)]) { 
 		return res.redirect('back')
 	}
-	Conversation.findById(req.user.conversations[Number(req.params.index)].id).populate('users[0].id').populate('users[1].id').exec(function(err, conversation) { 
+	Conversation.findById(req.user.conversations[Number(req.params.index)].id).populate('users.id').exec(function(err, conversation) { 
 		if (err) { 
 			console.log(err)
 			return res.redirect('back')
 		} 
+		// define the other user
 		var otherUser
 		if (conversation.users[0].id.equals(req.user._id)) { 
 			otherUser = conversation.users[1].id
 		} else if (conversation.users[1].id.equals(req.user._id)) { 
 			otherUser = conversation.users[0].id
 		} else { 
+			// if the current user doesn't belong in this conversation, redirect back
 			req.flash('error', "You're not in this conversation!")
 			return res.redirect('back')
 		}
+
+		// change conversation checked to true for the user that sent the message
+		req.user.conversations[Number(req.params.index)].numUnchecked = 0
+		// change conversation checked to false for the user that is receiving the message
+		var otherUserConversationIndex = otherUser.conversations.findIndex((thisConversation) => thisConversation.id.equals(conversation._id))
+		otherUser.conversations[otherUserConversationIndex].numUnchecked += 1
+		req.user.save()
+		otherUser.save() 
+
 		conversation.messages.push({text: req.body.messageBody, from: {id: req.user, username: req.user.username}})
 		conversation.save()
 	})

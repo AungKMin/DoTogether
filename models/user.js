@@ -33,7 +33,8 @@ const UserSchema = new mongoose.Schema({
 					ref: 'User'
 				}, 
 				username: String // user that this user is conversing with
-			}
+			},
+			numUnchecked: {type: Number, default: 0}
 		}
 	]
  /* comments: [*/

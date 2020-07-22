@@ -27,7 +27,12 @@
 							<li class="<%= typeof page !== 'undefined' && page === 'activities' ? 'active' : '' %>"><a href="/activities">Home</a></li>
 							<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfAC08sCa2NJPg0m3_HFHhtUeCPO-xUUHL9uNRX8FBzYU12Og/viewform?usp=sf_link" target="blank">Give us Feedback!</a></li>
 							<% if (currentUser) { %>
-								<li><a href="/t/entry">Messages</a></li>
+								<% let uncheckedTotalCount = 0
+								currentUser.conversations.forEach((conversation) => { 
+									uncheckedTotalCount += conversation.numUnchecked																																							
+								})
+								%>
+								<li><a href="/t/entry">Messages <%= uncheckedTotalCount > 0 ? uncheckedTotalCount : ''%></a></li>
 							<% } %>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">

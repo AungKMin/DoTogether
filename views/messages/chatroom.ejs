@@ -77,7 +77,7 @@
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
 					<% conversations.forEach(function(conversation, index) { %>
-						<a href="/t/message/<%=index%>"><li><%=conversation.to.username%></li></a>
+						<a href="/t/message/<%=index%>"><li><p><%=conversation.to.username%></p> <p><%=currentUser.conversations[index].numUnchecked > 0 ? currentUser.conversations[index].numUnchecked : ''%></p></li></a>
 					<% }) %>
         </ul>
       </div>
@@ -121,7 +121,8 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 			
-			const chatForm = document.getElementById('chat-form')		
+			const chatForm = document.getElementById('chat-form')	
+			const userList = document.getElementById('users')
 	
 			const fromUsername = '<%=currentUser.username%>'
 			const toUsername = '<%= currentConversation.users[0].id.equals(currentUser._id) ? currentConversation.users[1].username : currentConversation.users[0].username %>'
@@ -164,6 +165,18 @@
 				</p>`;
 				document.querySelector('.chat-messages').appendChild(div);
 			})
+
+			// Receiving a notification
+			socket.on('notification', userFrom => { 
+				for (let userA of userList.getElementsByTagName('a')) { 
+					let usernameP = userA.querySelector('li').getElementsByTagName('p')[0]
+					if (usernameP.innerHTML === userFrom) { 
+						let numberUncheckedP = userA.querySelector('li').getElementsByTagName('p')[1]
+						numberUncheckedP.innerHTML = Number(numberUncheckedP.innerHTML) + 1
+					}
+				}	
+			})
+
 		</script>
 	</body>
 </html> 
