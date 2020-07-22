@@ -91,11 +91,12 @@ io.on('connection', (socket) => {
 	socket.on('username', ({username, to}) => { 
 		console.log('User connect: ' + username + ' to ' + to)
 		name_id_dict[username] = {socketid: socket.id, to: to}
+		console.log(name_id_dict)
 	})
 
 	// receive the message
 	socket.on('message', message => { 
-		fullMessage = {...message, time: moment(Date.now()).format("h:mm a")}
+		fullMessage = {...message, time: moment(Date.now()).format("YYYY-MM-DD HH:mm a")}
 		io.to(name_id_dict[message.from].socketid).emit('message', fullMessage)
 		if (name_id_dict[message.to] && message.from === name_id_dict[message.to].to) { 
 			io.to(name_id_dict[message.to].socketid).emit('message', fullMessage)
@@ -112,6 +113,7 @@ io.on('connection', (socket) => {
 				break
 			}
 		}
+		console.log(name_id_dict)
 	})
 
 })

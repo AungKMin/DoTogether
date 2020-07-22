@@ -84,7 +84,7 @@
       <div class="chat-messages">
 				<% if(currentConversation){ currentConversation.messages.forEach(function(message) {%>
 					<div class="message">
-						<p class="meta"><%=message.from.username%><span> <%=moment(message.dateCreated).format("h:mm a")%></span></p>
+						<p class="meta"><%=message.from.username%><span> <%=moment(message.dateCreated).format("YYYY-MM-DD HH:mm a")%></span></p>
 						<p class="text">
 							<%=message.text%>
 						</p>
