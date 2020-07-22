@@ -90,16 +90,25 @@ io.on('connection', (socket) => {
 	// receive the username of the socket
 	socket.on('username', ({username, to}) => { 
 		console.log('User connect: ' + username + ' to ' + to)
-		name_id_dict[username] = {socketid: socket.id, to: to}
+		if (!name_id_dict[username]) { 
+			name_id_dict[username] = {socketids: [socket.id], to: to}
+		} else { 
+			name_id_dict[username].socketids.push(socket.id)
+			name_id_dict[username].to = to
+		}
 		console.log(name_id_dict)
 	})
 
 	// receive the message
 	socket.on('message', message => { 
 		fullMessage = {...message, time: moment(Date.now()).format("YYYY-MM-DD HH:mm a")}
-		io.to(name_id_dict[message.from].socketid).emit('message', fullMessage)
+		name_id_dict[message.from].socketids.forEach((socketid) => { 
+			io.to(socketid).emit('message', fullMessage)
+		})
 		if (name_id_dict[message.to] && message.from === name_id_dict[message.to].to) { 
-			io.to(name_id_dict[message.to].socketid).emit('message', fullMessage)
+			name_id_dict[message.to].socketids.forEach((socketid) => { 
+				io.to(socketid).emit('message', fullMessage)
+			})
 		}
 		console.log(message.from + ' to ' + message.to + ': ' + message.text)
 	})
@@ -107,9 +116,16 @@ io.on('connection', (socket) => {
 	// user disconnects
 	socket.on('disconnect', () => { 
 		for (const username in name_id_dict) { 
-			if (name_id_dict[username] && name_id_dict[username].socketid === socket.id) { 
+			if (name_id_dict[username] && name_id_dict[username].socketids.includes(socket.id)) { 
 				console.log(username + ' disconnected')
-				name_id_dict[username] = null
+				if (name_id_dict[username].socketids.length <= 1) {
+					// delete the entire definition
+					name_id_dict[username] = null
+				} else { 
+					// delete the one socket 
+					const deleteIndex = name_id_dict[username].socketids.indexOf(socket.id)
+					name_id_dict[username].socketids.splice(deleteIndex, 1)
+				}
 				break
 			}
 		}
