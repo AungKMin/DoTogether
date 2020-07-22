@@ -9,7 +9,9 @@ const express = require('express'),
 	Activity = require('./models/activity'),
 	Comment = require('./models/comment'),
 	User = require('./models/user'),
-	seedDB = require('./seeds')
+	Conversation = require('./models/conversation'),
+	seedDB = require('./seeds'),
+	moment = require('moment')
 
 // requring routes
 const activityRoutes = require('./routes/activities'),
@@ -75,6 +77,41 @@ app.get('*', function(req, res) {
 
 // port
 let port = process.env.PORT || '3000'
-app.listen(port, process.env.IP, function() { 
+var server = app.listen(port, process.env.IP, function() { 
 	console.log('Server Started')
+})
+
+// web sockets for messaging 
+var io = require('socket.io').listen(server)
+
+name_id_dict = {}
+io.on('connection', (socket) => {
+
+	// receive the username of the socket
+	socket.on('username', ({username, to}) => { 
+		console.log('User connect: ' + username + ' to ' + to)
+		name_id_dict[username] = {socketid: socket.id, to: to}
+	})
+
+	// receive the message
+	socket.on('message', message => { 
+		fullMessage = {...message, time: moment(Date.now()).format("h:mm a")}
+		io.to(name_id_dict[message.from].socketid).emit('message', fullMessage)
+		if (name_id_dict[message.to] && message.from === name_id_dict[message.to].to) { 
+			io.to(name_id_dict[message.to].socketid).emit('message', fullMessage)
+		}
+		console.log(message.from + ' to ' + message.to + ': ' + message.text)
+	})
+	
+	// user disconnects
+	socket.on('disconnect', () => { 
+		for (const username in name_id_dict) { 
+			if (name_id_dict[username].socketid === socket.id) { 
+				console.log(username + ' disconnected')
+				name_id_dict[username] = null
+				break
+			}
+		}
+	})
+
 })

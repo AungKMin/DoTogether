@@ -23,6 +23,9 @@
 					<p><%= activity.description %></p>
 					<p>
 						<em> Subbmitted by: <a href="/users/<%=activity.author.id._id%>"><img style="height: 40px; width: 40px;display:inline;" src="<%=activity.author.id.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture"><%= activity.author.id.firstName + ' ' + activity.author.id.lastName%> aka <%= activity.author.username %></a>, <%=moment(activity.dateCreated).fromNow()%> </em>
+					<% if (currentUser && !activity.author.id._id.equals(currentUser._id)) { %>
+						<form action="/t/message/new/<%=activity.author.id._id%>" method="POST"> <input class = "btn btn-s btn-success" type="submit" value="Message Author" > </form>
+					<%}%>
 					</p>
 					<% if (currentUser && activity.author.id._id.equals(currentUser._id)) { %>
 							<a class="btn btn-s btn-warning" href="/activities/<%=activity._id%>/edit">Edit Post</a>

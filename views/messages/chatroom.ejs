@@ -1,15 +1,70 @@
-<%- include('../partials/header') %>
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/stylesheets/chatroom.css">
-  <title>ChatCord App</title>
-</head>
-<body>
+
+<html>
+	<head>
+		<!-- Make site responsive on small screens -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>DoTogether</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+		<link rel="stylesheet" href="/stylesheets/chatroom.css">
+		<link rel="stylesheet" href="/stylesheets/main.css">
+	</head>
+	<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+					<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+
+							<a class="navbar-brand" href="/">DoTogether</a>
+					</div>
+					<div id="navbar" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li class="<%= typeof page !== 'undefined' && page === 'activities' ? 'active' : '' %>"><a href="/activities">Home</a></li>
+							<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfAC08sCa2NJPg0m3_HFHhtUeCPO-xUUHL9uNRX8FBzYU12Og/viewform?usp=sf_link" target="blank">Give us Feedback!</a></li>
+							<% if (currentUser) { %>
+								<li><a href="/t/entry">Messages</a></li>
+							<% } %>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+								<% if(!currentUser){ %>
+										<li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
+										<li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
+								<% } else { %>
+									<li><a href="/users/<%=currentUser._id%>">Signed In As <%= currentUser.username %></a></li>
+									<li> <a href="/users/<%=currentUser._id%>">My profile</a> </li>
+									<li><a href="/logout">Logout</a></li>
+								<% } %>
+						</ul>
+					</div>
+			</div>
+	</nav>
+
+	<br><br><br>
+
+	<div class='container'>
+		<% if (error && error.length > 0) { %>
+			<div class="alert alert-danger" role='alert'>
+				<%= error %>
+			</div>
+		<% } %>
+		<% if (success && success.length > 0) { %>
+		<div class="alert alert-success" role='alert'>
+			<%= success %>
+		</div>
+		<% } %>
+	</div>
+
+	<div class="container"> 
+
+
+
   <div class="chat-container">
     <header class="chat-header">
       <h1><i class="fas fa-smile"></i> DoTogether Chat</h1>
@@ -21,47 +76,95 @@
         <h2 id="room-name">JavaScript</h2>
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
-          <li>Brad</li>
-          <li>John</li>
-          <li>Mary</li>
-          <li>Paul</li>
-          <li>Mike</li>
+					<% conversations.forEach(function(conversation, index) { %>
+						<a href="/t/message/<%=index%>"><li><%=conversation.to.username%></li></a>
+					<% }) %>
         </ul>
       </div>
       <div class="chat-messages">
+				<% if(currentConversation){ currentConversation.messages.forEach(function(message) {%>
 					<div class="message">
-						<p class="meta">Brad <span>9:12pm</span></p>
+						<p class="meta"><%=message.from.username%><span> <%=moment(message.dateCreated).format("h:mm a")%></span></p>
 						<p class="text">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-							repudiandae.
+							<%=message.text%>
 						</p>
 					</div>
-					<div class="message">
-						<p class="meta">Mary <span>9:15pm</span></p>
-						<p class="text">
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi,
-							repudiandae.
-						</p>
-					</div>
+				<% })} %>
       </div>
     </main>
     <div class="chat-form-container">
-      <form id="chat-form">
-        <input
-          id="msg"
-          type="text"
-          placeholder="Enter Message"
-          required
-          autocomplete="off"
-        />
-        <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-      </form>
+				<form id="chat-form" action="/t/message/send/<%=index%>" method="POST" target="votar">
+					<input
+						id="msg"
+						type="text"
+						placeholder="Enter Message"
+						required
+						autocomplete="off"
+					/>
+					<button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+				</form>
+				<iframe name="votar" style="display:none;"></iframe>
     </div>
   </div>
 
-  <script src="js/main.js"></script>
-</body>
-</html>
 
-<%- include('../partials/footer') %>
+		</div>
+		<br><br>
+		<footer class="footer navbar-fixed-bottom">
+			<div class="container" style="background-color: black; color: white;">
+				<p>&copy 2020 by DoTogether<a href="mailto:mail.dotogether@gmail.com"> Contact Us: mail.dotogether@gmail.com</a></p>
+			</div>
+		</footer>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>    
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			
+			const chatForm = document.getElementById('chat-form')		
+	
+			const fromUsername = '<%=currentUser.username%>'
+			const toUsername = '<%= currentConversation.users[0].id.equals(currentUser._id) ? currentConversation.users[1].username : currentConversation.users[0].username %>'
+
+			const socket = io();
+
+			socket.emit('username', {username: fromUsername, to: toUsername})
+
+			// submit message
+
+			$('#chat-form').on('submit', e => { 
+				console.log('value coming up')
+				console.log(e.target.elements.msg.value)
+				const message = {from: fromUsername, to: toUsername, text: e.target.elements.msg.value}
+				socket.emit('message', message)
+
+				// Delete past temporary values if any
+				let toDelete = chatForm.getElementsByClassName('invisible-input')
+				while (toDelete[0]) { 
+					toDelete[0].parentNode.removeChild(toDelete[0])
+				}
+				// Create a temporary value 
+				const input = document.createElement('input')
+				input.classList.add('invisible-input')
+				input.setAttribute('name', 'messageBody')
+				input.setAttribute('value', e.target.elements.msg.value)
+				chatForm.appendChild(input)
+
+				e.target.elements.msg.value = ''
+				e.target.eleemnts.msg.focus()
+			})
+			
+			// Receiving messages
+			socket.on('message', message => { 
+				const div = document.createElement('div');
+				div.classList.add('message');
+				div.innerHTML = `<p class="meta">${message.from} <span>${message.time}</span></p>
+				<p class="text">
+					${message.text}
+				</p>`;
+				document.querySelector('.chat-messages').appendChild(div);
+			})
+		</script>
+	</body>
+</html> 
 

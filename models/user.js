@@ -20,6 +20,21 @@ const UserSchema = new mongoose.Schema({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Activity'
 		}
+	],
+	conversations: [ 
+		{
+			id: { 
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Conversation'
+			}, 
+			to: { 
+				id: { 
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'User'
+				}, 
+				username: String // user that this user is conversing with
+			}
+		}
 	]
  /* comments: [*/
 		//{

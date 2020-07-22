@@ -86,6 +86,8 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
 					req.flash('error', err.message);
 					return res.redirect('back');
 				}
+				req.user.activities.push(activity)
+				req.user.save()
 				req.flash('success', 'Activity posted!')
 				res.redirect('/activities/' + activity.id);
 			});
@@ -100,6 +102,8 @@ router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, re
 				req.flash('error', err.emssage)
 				return res.redirect('back')
 			}
+			req.user.activities.push(activity)
+			req.user.save()
 			req.flash('success', 'Activity posted!')
 			res.redirect('/activities/' + activity.id)
 		})

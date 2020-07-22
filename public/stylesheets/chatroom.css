@@ -188,3 +188,6 @@ a {
 	}
 }
 
+.invisible-input { 
+	display: none;
+}
