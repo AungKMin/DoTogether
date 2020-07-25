@@ -64,6 +64,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 					email: req.body.email.trim(),
 					contact: req.body.contact.trim(),
 					bio: req.body.bio,
+					gender: req.body.gender,
 					conversations: []
 				})
 			User.register(newUser, req.body.password, function(err, user) { 
@@ -89,6 +90,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 				email: req.body.email.trim(),
 				contact: req.body.contact.trim(),
 				bio: req.body.bio,
+				gender: req.body.gender,
 				conversations: []
 			})
 		User.register(newUser, req.body.password, function(err, user) { 

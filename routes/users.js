@@ -73,6 +73,7 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			let firstName = req.body.firstName.trim()
 			let lastName = req.body.lastName.trim()
 			let bio = req.body.bio
+			let gender = req.body.gender
 			let contact = req.body.contact.trim()
 			if (email !== user.email) { 
 				user.emailVerified = false
@@ -81,6 +82,7 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			user.firstName = firstName
 			user.lastName = lastName
 			user.bio = bio
+			user.gender = gender
 			user.contact = contact
 			user.save(function(err) { 
 				if (err) { 
