@@ -62,6 +62,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 					avatar: result.secure_url,
 					avatarId: result.public_id,
 					email: req.body.email.trim(),
+					contact: req.body.contact.trim(),
 					bio: req.body.bio,
 					conversations: []
 				})
@@ -86,6 +87,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 				firstName: req.body.firstName.trim(), 
 				lastName: req.body.lastName.trim(), 
 				email: req.body.email.trim(),
+				contact: req.body.contact.trim(),
 				bio: req.body.bio,
 				conversations: []
 			})

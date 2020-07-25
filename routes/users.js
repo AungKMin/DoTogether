@@ -72,9 +72,11 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			let firstName = req.body.firstName.trim()
 			let lastName = req.body.lastName.trim()
 			let bio = req.body.bio
+			let contact = req.body.contact.trim()
 			user.firstName = firstName
 			user.lastName = lastName
 			user.bio = bio
+			user.contact = contact
 			user.save(function(err) { 
 				if (err) { 
 					req.flash('error', 'Something went wrong')
