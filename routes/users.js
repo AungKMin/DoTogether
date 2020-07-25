@@ -53,7 +53,7 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			req.flash('error', 'error updating profile')
 			res.redirect('/users/' + req.params.id + '/edit')
 		} else { 
-			if (!req.body.username || !req.body.firstName || !req.body.lastName) { 
+			if (!req.body.firstName || !req.body.lastName) { 
 				req.flash('error', 'One or more required fields are empty')
 				return res.redirect('/users/' + req.params.id)
 			}
@@ -69,11 +69,9 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 					return res.redirect('back')
 				}
 			}
-			let username = req.body.username.trim()
 			let firstName = req.body.firstName.trim()
 			let lastName = req.body.lastName.trim()
 			let bio = req.body.bio
-			user.username = username
 			user.firstName = firstName
 			user.lastName = lastName
 			user.bio = bio
