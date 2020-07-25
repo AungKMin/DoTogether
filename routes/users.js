@@ -69,10 +69,15 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 					return res.redirect('back')
 				}
 			}
+			let email = req.body.email.trim()
 			let firstName = req.body.firstName.trim()
 			let lastName = req.body.lastName.trim()
 			let bio = req.body.bio
 			let contact = req.body.contact.trim()
+			if (email !== user.email) { 
+				user.emailVerified = false
+			}
+			user.email = email
 			user.firstName = firstName
 			user.lastName = lastName
 			user.bio = bio
