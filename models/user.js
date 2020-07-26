@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
 	email: {type: String, unique: true, required: true},
 	contact: String,
 	gender: String,
+	birthday: Date,
 	resetPasswordToken: String, 
 	resetPasswordExpires: Date, 
 	verifyEmailToken: String, 

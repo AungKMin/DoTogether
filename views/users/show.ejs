@@ -10,6 +10,7 @@
 			<% if (user.gender !== 'na') {%> 
 			<div class="caption">Gender: <%=user.gender%></div>
 			<% } %>
+			<div class="caption">Age: <%=userAge%></div>
 			<% if (currentUser && user._id.equals(currentUser._id)) { %>
 				<div class="caption"><%=user.email%></div>
 			<% } %>

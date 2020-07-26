@@ -7,6 +7,7 @@ const async = require('async')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
 const multer = require('multer');
+const utils = require('../utils')
 require('dotenv').config()
 
 var storage = multer.diskStorage({
@@ -44,6 +45,12 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", upload.single('image'), function(req, res) { 
+	let birthday = new Date(req.body.birthday);
+	let age = utils.calculateAge(birthday) 
+	if (age < 13) { 
+		req.flash('error', "Sorry, you're a bit too young to use this site!")
+		return res.redirect('back')
+	}
 	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
 		req.flash('error', 'One or more required fields empty')
 		return res.redirect('back')
@@ -65,6 +72,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 					contact: req.body.contact.trim(),
 					bio: req.body.bio,
 					gender: req.body.gender,
+					birthday: birthday,
 					conversations: []
 				})
 			User.register(newUser, req.body.password, function(err, user) { 
@@ -79,10 +87,6 @@ router.post("/register", upload.single('image'), function(req, res) {
 			})
 		})
 	} else { 
-		if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
-			req.flash('error', 'One or more required fields empty')
-			return res.redirect('back')
-		}
 		let newUser = new User({
 				username: req.body.username.trim(),
 				firstName: req.body.firstName.trim(), 
@@ -91,6 +95,7 @@ router.post("/register", upload.single('image'), function(req, res) {
 				contact: req.body.contact.trim(),
 				bio: req.body.bio,
 				gender: req.body.gender,
+				birthday: birthday,
 				conversations: []
 			})
 		User.register(newUser, req.body.password, function(err, user) { 

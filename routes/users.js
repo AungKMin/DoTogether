@@ -4,6 +4,7 @@ const passport = require('passport')
 const User = require('../models/user')
 const middleware = require('../middleware')
 const multer = require('multer');
+const utils = require('../utils')
 require('dotenv').config()
 
 var storage = multer.diskStorage({
@@ -36,7 +37,7 @@ router.get('/:id', function(req, res) {
 			req.flash('error', 'User not found')
 			res.redirect('back')
 		} else { 
-			res.render('users/show', {user: foundUser})
+			res.render('users/show', {user: foundUser, userAge: utils.calculateAge(foundUser.birthday)})
 		}
 	})
 }) 
