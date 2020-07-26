@@ -19,6 +19,9 @@
 		<% if (currentUser && user._id.equals(currentUser._id)) { %>
 				<a class="btn btn-s btn-warning" href="/users/<%=user._id%>/edit">Edit Profile</a>
 		<% } %>
+		<% if (currentUser && !user._id.equals(currentUser._id)) { %>
+			<form action="/t/message/new/<%=user._id%>" method="POST"> <input class = "btn btn-s btn-success" type="submit" value="Message Author"> </form>
+		<%}%>
 	</div>
 	<div class="col-md-8"> 
 		<% if (currentUser && user._id.equals(currentUser._id)) { %>
