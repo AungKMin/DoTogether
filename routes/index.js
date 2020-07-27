@@ -44,17 +44,43 @@ router.get("/register", function(req, res) {
 })
 
 // sign up logic
-router.post("/register", upload.single('image'), function(req, res) { 
+router.post("/register", upload.single('image'), async function(req, res) { 
 	let birthday = new Date(req.body.birthday);
 	let age = utils.calculateAge(birthday) 
 	if (age < 13) { 
 		req.flash('error', "Sorry, you're a bit too young to use this site!")
 		return res.redirect('back')
 	}
-	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+	if (!req.body.birthday || !req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
 		req.flash('error', 'One or more required fields empty')
 		return res.redirect('back')
 	}
+	// Check if an existing user has the same email
+	try { 
+		var matchuser = await User.findOne({email: req.body.email}) 
+	} catch(err) { 
+		req.flash('error', err.message)
+		console.log(err)
+		return res.redirect('back')
+	}
+	if (matchuser) { 
+		req.flash('error', 'Email is associated with an existing account');
+		return res.redirect('back')
+	}
+	
+	// Check if an existing user has the same username
+	try { 
+		var matchusername = await User.findOne({username: req.body.username}) 
+	} catch(err) { 
+		req.flash('error', err.message)
+		console.log(err)
+		return res.redirect('back')
+	}
+	if (matchusername) { 
+		req.flash('error', 'Username is associated with an existing account');
+		return res.redirect('back')
+	}
+
 	if (req.file) {
 		cloudinary.uploader.upload(req.file.path, function(err, result) { 
 			if (err) { 
