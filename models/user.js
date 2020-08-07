@@ -10,13 +10,14 @@ const UserSchema = new mongoose.Schema({
 	lastName: String, 
 	email: {type: String, unique: true, required: true},
 	contact: String,
-	gender: String,
+	gender: {type: String, default: "na"},
 	birthday: Date,
 	resetPasswordToken: String, 
 	resetPasswordExpires: Date, 
 	verifyEmailToken: String, 
 	verifyEmailExpires: Date,
 	emailVerified: {type: Boolean, default: false},
+	editProfileOnce: {type: Boolean, default: false},
 	bio: String,
 	activities: [
 		{

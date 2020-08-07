@@ -27,10 +27,13 @@
 	<div class="col-md-8"> 
 		<% if (currentUser && user._id.equals(currentUser._id)) { %>
 			<% if (!currentUser.emailVerified) { %>
-				<p class="alert alert-danger" > Your email is NOT verified </p>
+				<p class="alert alert-danger"> Your email is NOT verified </p>
 				<a href="/verify">Click here to verify</a>
 				<br><br>  
 			<% } %>		
+			<% if (!currentUser.editProfileOnce) { %>
+				<p class="alert alert-warning"> Update your profile to extend your reach</p>
+			<% } %> 
 			<a class="btn btn-primary btn-large" href="/activities/new">Post an activity</a>
 		<% } %>
 		<h3>Posted Activities</h3>

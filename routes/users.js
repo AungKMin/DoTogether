@@ -37,7 +37,7 @@ router.get('/:id', function(req, res) {
 			req.flash('error', 'User not found')
 			res.redirect('back')
 		} else { 
-			res.render('users/show', {user: foundUser, userAge: utils.calculateAge(foundUser.birthday)})
+			res.render('users/show', {user: foundUser, userAge: foundUser.birthday ? utils.calculateAge(foundUser.birthday) : ""})
 		}
 	})
 }) 
@@ -85,6 +85,7 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			user.bio = bio
 			user.gender = gender
 			user.contact = contact
+			user.editProfileOnce = true
 			user.save(function(err) { 
 				if (err) { 
 					req.flash('error', 'Something went wrong')
