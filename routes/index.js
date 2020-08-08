@@ -45,13 +45,17 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", upload.single('image'), async function(req, res) { 
-	let birthday = new Date(req.body.birthday);
-	let age = utils.calculateAge(birthday) 
-	if (age < 13) { 
-		req.flash('error', "Sorry, you're a bit too young to use this site!")
-		return res.redirect('back')
+	if (req.body.birthday) { 
+		let birthday = new Date(req.body.birthday);
+		let age = utils.calculateAge(birthday) 
+		if (age < 13) { 
+			req.flash('error', "Sorry, you're a bit too young to use this site!")
+			return res.redirect('back')
+		}
+	} else { 
+		birthday = undefined
 	}
-	if (!req.body.birthday || !req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
 		req.flash('error', 'One or more required fields empty')
 		return res.redirect('back')
 	}
@@ -98,7 +102,7 @@ router.post("/register", upload.single('image'), async function(req, res) {
 					contact: req.body.contact.trim(),
 					bio: req.body.bio,
 					gender: req.body.gender,
-					birthday: birthday,
+					birthday: birthday ? birthday : undefined,
 					conversations: []
 				})
 			User.register(newUser, req.body.password, function(err, user) { 

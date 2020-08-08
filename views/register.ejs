@@ -17,31 +17,36 @@
 				<input class="form-control" type="text" name="lastName" placeholder="last name" required>
 			</div>
 			<div class="form-group">
-				<label target="birthday">Birthday</label>				
-				<input name="birthday" type="date">
-			</div>
-			<div class="form-group">
-				<label for="image">Upload your profile picture</label>
-				<input type="file" id="image" class="form-control" name="image" accept="image/*">
-			</div>
-			<div class="form-group">
 				<input class="form-control" type="email" name="email" placeholder="email address" required>
 			</div>
-			<div class="form-group">
-				<input class="form-control" type="text" name="bio" placeholder="bio">
+
+			<button class="collapsible">More about you (you can update these later)</button>
+			<div class="content">
+				<div class="form-group">
+					<label target="birthday">Birthday</label>				
+					<input name="birthday" type="date">
+				</div>
+				<div class="form-group">
+					<label for="image">Upload your profile picture</label>
+					<input type="file" id="image" class="form-control" name="image" accept="image/*">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="bio" placeholder="bio">
+				</div>
+				<div class="form-group">
+					<input class="form-control" type="text" name="contact" placeholder="a way for others to contact you (everyone can see this on your profile)">
+				</div>
+				<div class="form-group">
+					<p> Gender </p>				
+					<select name="gender">
+						<option value="na">prefer not to say</option>
+						<option value="male">male</option>
+						<option value="female">female</option>
+						<option value="other">other</option>
+					</select>
+				</div>
 			</div>
-			<div class="form-group">
-				<input class="form-control" type="text" name="contact" placeholder="a way for others to contact you (everyone can see this on your profile)">
-			</div>
-			<div class="form-group">
-				<p> Gender </p>				
-				<select name="gender">
-					<option value="na">prefer not to say</option>
-					<option value="male">male</option>
-					<option value="female">female</option>
-					<option value="other">other</option>
-				</select>
-			</div>
+			<br><br>
 			<div class="form-group">
 				<a href="https://drive.google.com/file/d/1CfF7Gmj1JPgxxVnzd-uS0ZKCiLWaWf9t/view?usp=sharing" target="blank" style="display: block">Terms and Conditions</a>
 				<input name="terms" type="checkbox" required>
@@ -54,5 +59,22 @@
 		<a href="/activities">Go Back</a> 
 	</div>
 </div> 
+
+<script> 
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+		coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.display === "block") {
+				content.style.display = "none";
+			} else {
+				content.style.display = "block";
+			}
+		});
+	}
+</script>
 
 <%- include('./partials/footer') %>
