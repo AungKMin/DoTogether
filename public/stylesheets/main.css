@@ -60,6 +60,7 @@ html, body {
   background-color: #f1f1f1;
 }
 
+/* Activities page */
 .jumbotron-button { 
 	font-family:georgia; 
 	font-size: 1.5em;
@@ -139,6 +140,7 @@ label {
 	margin-top: 0.7em;
 } 
 
+/*Navbar*/
 .navbar { 
 	background-color: var(--blue); 
 	font-family: georgia;
@@ -146,6 +148,10 @@ label {
 
 .navbar-default .navbar-brand { 
 	color: var(--yellow);
+}
+
+.navbar-default .navbar-brand:hover { 
+	color: var(--red);
 }
 
 .navbar-default .navbar-nav li a { 
@@ -164,3 +170,11 @@ label {
 .navbar-default .navbar-nav .active a:hover {
 	background-color: var(--red);
 }
+
+/*Footer*/
+
+.footer a { 
+	color: var(--blue);
+	text-decoration: underline;
+}
+
