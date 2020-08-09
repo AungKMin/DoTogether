@@ -101,6 +101,7 @@ html, body {
 .jumbotron-text { 
 	font-family: georgia;
 	font-size: 1.5em;
+	color: var(--yellow);
 }
 
 .jumbotron-add { 
