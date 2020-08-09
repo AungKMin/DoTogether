@@ -1,11 +1,17 @@
 :root { 
 	--yellow: #FEFFD6;
 	--blue: #0096C7; 
+	--brightblue: #00bfff;
 	--red:#F8A98C; 
+	--blue-decimal: 0, 150, 199;
 }
 
 body { 
 	background-color: var(--yellow); 
+}
+
+a { 
+	color: var(--blue);
 }
 
 .thumbnail img { 
@@ -59,6 +65,25 @@ html, body {
   overflow: hidden;
   background-color: #f1f1f1;
 }
+
+/* Buttons */
+.btn { 
+	color: var(--yellow)
+}
+
+.btn-danger { 
+	background-color: var(--red);
+	border-color: var(--red);
+} 
+
+.btn-success { 
+	background-color: var(--blue);
+	border-color: var(--blue);
+}
+
+.btn-success:hover { 
+	background-color: var(--brightblue);
+} 
 
 /* Activities page */
 .jumbotron-button { 
@@ -189,9 +214,66 @@ label {
 }
 
 /*Footer*/
-
 .footer a { 
 	color: var(--blue);
 	text-decoration: underline;
 }
 
+/*activities index*/
+.activity-box { 
+	border: 2em solid var(--blue)
+}
+
+.activity-box .caption { 
+	background-color: var(--yellow);
+	font-family: georgia; 
+}
+
+.activity-box strong { 
+	color: black;
+	text-decoration: underline;
+}
+
+hr { 
+	border-color: var(--red)
+}
+
+.well { 
+	background-color: var(--yellow);
+	border: 2em solid var(--blue);
+	padding: 9px;
+}
+
+.comment { 
+	font-family: georgia;
+	background-color: rgba(var(--blue-decimal),0.3); 
+	padding: 15px;
+	margin-bottom: 1em;
+}
+
+.comment strong { 
+	color: black;
+	font-style: italic;
+	text-decoration: underline;
+}
+
+.list-group { 
+	background-color: var(--red);
+	padding: 1em;
+}
+
+.list-group-item { 
+	background-color: var(--blue);
+	color: var(--yellow);
+}
+
+.list-group-item:hover { 
+	background-color: var(--brightblue);
+	text-decoration: none;
+}
+
+.lead { 
+	font-size: 3em;
+	font-family: georgia;
+	color: var(--blue)
+}
