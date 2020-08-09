@@ -50,7 +50,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
    
 // categories for activities
-let categories = ['Sport', 'Learning', 'Reading', 'Tabletop', 'Gaming', 'Social', 'Music', 'Art','Coding', 'Mindfulness', 'Film', 'Design'] 
+let categories = ['Art','Coding', 'Design' 'Film', 'Gaming', 'Learning', 'Mindfulness', 'Music', 'Reading', 'Social', 'Sport', 'Tabletop'] 
 
 // add a middleware to every route
 app.use(function(req, res, next) {
