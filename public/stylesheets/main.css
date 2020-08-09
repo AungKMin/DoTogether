@@ -323,7 +323,7 @@ hr {
 
 .user-box { 
 	background-color: var(--red);
-	padding: 1em;
+	padding: 0.5em;
 	color: var(--yellow);
 }
 
