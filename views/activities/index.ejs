@@ -41,7 +41,7 @@
 							<% activity.category.forEach(function(category) {%>
 								<h4 class="label"><%=category%></h4>
 							<% })%>							
-							<p> posted <%= moment(activity.dateCreated).fromNow() %> </p>
+							<p class="posted"> posted <%= moment(activity.dateCreated).fromNow() %> </p>
 							<p> Happening: <%= activity.date %></p>
 							<p> <%= activity.description.length > 50 ? activity.description.substring(0, 50) + '...' : activity.description%> </p>
 						</div>

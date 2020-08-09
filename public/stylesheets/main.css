@@ -128,9 +128,13 @@ label {
 	text-decoration: underline;
 }
 
+.card h4 { 
+	font-size: 1em;
+	text-align: left;
+}
+
 .label {
   background-color: var(--blue);
-  text-align:center;
   font-size: 1em;
 }
 
@@ -139,6 +143,19 @@ label {
 	margin: 0;
 	margin-top: 0.7em;
 } 
+
+.posted { 
+	font-style: italic;
+}
+
+.card img { 
+	max-height: 20em;
+}
+
+.card .caption { 
+	text-align: justify;
+	background-color: var(--yellow);
+}
 
 /*Navbar*/
 .navbar { 
