@@ -55,7 +55,7 @@ router.post("/register", upload.single('image'), async function(req, res) {
 	} else { 
 		birthday = undefined
 	}
-	if (!req.body.email || !req.body.username || !req.body.firstName || !req.body.lastName) { 
+	if (!req.body.email || !req.body.username) { 
 		req.flash('error', 'One or more required fields empty')
 		return res.redirect('back')
 	}

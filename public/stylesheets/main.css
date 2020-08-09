@@ -42,8 +42,8 @@ html, body {
 }
 
 .collapsible {
-  background-color: #eee;
-  color: #444;
+  background-color: var(--blue);
+  color: var(--yellow);
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -55,7 +55,7 @@ html, body {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: #ccc;
+  background-color: var(--brightblue);
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -63,7 +63,7 @@ html, body {
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: var(--yellow);
 }
 
 /* Buttons */
@@ -117,11 +117,6 @@ html, body {
 
 label { 
 	font-family: georgia;
-}
-
-.form-input { 
-	background-color: var(--yellow); 
-	color: var(--blue);
 }
 
 .page { 
@@ -265,6 +260,7 @@ hr {
 .list-group-item { 
 	background-color: var(--blue);
 	color: var(--yellow);
+	text-decoration: none;
 }
 
 .list-group-item:hover { 
@@ -277,3 +273,39 @@ hr {
 	font-family: georgia;
 	color: var(--blue)
 }
+
+/*forms*/
+.form-box form { 
+	background-color: var(--red);
+	padding: 1em;
+}
+
+.form-box .form-group { 
+	color: var(--yellow);
+	background-color: var(--blue);
+	padding: 0.5em;
+}
+
+.form-box .form-group a {
+ 	color: var(--yellow);	
+}
+
+.form-box .form-group a:hover { 
+	text-decoration: underline;
+	text-decoration-color: var(--yellow)
+}
+
+.form-box .form-group span { 
+	font-weight: bold;
+}
+
+.form-group select, .form-group input[type="text"], .form-group input[type="password"], .form-group input[type="email"], .form-group input[type="file"], .form-group input[type="date"] { 
+	background-color: var(--yellow); 
+	color: var(--blue);
+}
+
+.form-group input[type="text"] { 
+	background-color: var(--yellow); 
+	color: var(--blue);
+}
+
