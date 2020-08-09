@@ -32,7 +32,7 @@
 									uncheckedTotalCount += conversation.numUnchecked																																							
 								})
 								%>
-								<li><a href="/t/entry">Messages <%= uncheckedTotalCount > 0 ? uncheckedTotalCount : ''%></a></li>
+								<li><a href="/t/entry">Messages <span class="<%= uncheckedTotalCount > 0 ? "notif" : ""%>" ><%= uncheckedTotalCount > 0 ? uncheckedTotalCount : ''%></span></a></li>
 							<% } %>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">

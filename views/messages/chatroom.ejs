@@ -68,23 +68,20 @@
   <div class="chat-container">
     <header class="chat-header">
       <h1><i class="fas fa-smile"></i> DoTogether Chat</h1>
-      <a href="index.html" class="btn">Leave Room</a>
     </header>
     <main class="chat-main">
       <div class="chat-sidebar">
-        <h3><i class="fas fa-comments"></i> Room Name:</h3>
-        <h2 id="room-name">JavaScript</h2>
         <h3><i class="fas fa-users"></i> Users</h3>
         <ul id="users">
 					<% conversations.forEach(function(conversation, index) { %>
-						<a href="/t/message/<%=index%>"><li><p><%=conversation.to.username%></p> <p><%=currentUser.conversations[index].numUnchecked > 0 ? currentUser.conversations[index].numUnchecked : ''%></p></li></a>
+					<a href="/t/message/<%=index%>"><li><span><%=conversation.to.username%></span> <span class="<%= currentUser.conversations[index].numUnchecked ? "notif" : "" %>" ><%=currentUser.conversations[index].numUnchecked > 0 ? currentUser.conversations[index].numUnchecked : ''%></span></li></a>
 					<% }) %>
         </ul>
       </div>
       <div class="chat-messages">
 				<% if(currentConversation){ currentConversation.messages.forEach(function(message) {%>
 					<div class="message">
-						<p class="meta"><%=message.from.username%><span> <%=moment(message.dateCreated).format("YYYY-MM-DD HH:mm a")%></span></p>
+						<p class="meta"><%=message.from.username%><span style="margin-left: 1em;">  <%=moment(message.dateCreated).format("YYYY-MM-DD HH:mm a")%></span></p>
 						<p class="text">
 							<%=message.text%>
 						</p>

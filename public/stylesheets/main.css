@@ -337,6 +337,7 @@ hr {
 	background-color: var(--blue);
 	padding: 0.5em;
 	color: var(--yellow);
+	margin: 0.5em;
 }
 
 .profile-activities { 
@@ -353,4 +354,13 @@ hr {
 
 .profile-activities ul li a { 
 	color: var(--yellow);
+}
+
+/*Messages*/
+.notif { 
+	color: black;
+	background-color: var(--red);
+	padding: 0.3em;
+	border-radius: 100%;
+	display: inline;
 }
