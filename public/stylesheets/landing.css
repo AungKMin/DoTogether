@@ -1,3 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+
+
+.button {
+  background-color: #FEFFD6;
+  border-color: black;
+  color: black;
+  padding: 10px;
+  text-align: center;
+  text-shadow:  0.05rem 0.05rem 0.1rem gray;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 8px;
+}
+
+
+.button:hover {
+ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+ padding: 11px;
+}
+
+
+/*
+
+.jumbotron {
+position: relative;
+height: 300px;
+background-image: url(https://cdn.pixabay.com/photo/2017/05/15/12/14/social-media-2314696_960_720.jpg);
+background-size: cover;
+background-blend-mode: overlay;
+background-position: top;
+background-repeat: no-repeat;
+text-align:center;
+margin-bottom: 50px;
+}
+*/
+/*.carousel-item{
+height: 100vh
+background-size: cover;
+background-repeat: no-repeat;
+background-blend-mode: overlay;
+text-align:center;
+}*/
+
+.carousel-caption{
+  position: center;
+  top: 30%;
+}
+
+
+.carousel-caption h1{
+ font-size: 50px;
+ letter-spacing: 0.1rem;
+ color: black;
+ text-shadow: 0.2rem 0.2rem 0.3rem gray;
+ margin-bottom: 2rem
+}
+
+
+.carousel-caption h2{
+ font-size: 55px;
+ letter-spacing: 0.1rem;
+ color: white;
+ text-shadow: 0.2rem 0.1rem 0.2rem #C2E8FF;
+ margin-bottom: 3rem
+}
+
+.carousel-caption h3{
+ font-size: 55px;
+ letter-spacing: 0.1rem;
+ color: white;
+ text-shadow: 0.2rem 0.1rem 0.1rem #999999;
+ margin-bottom: 1rem;
+}
+
+
+.carousel-caption h4{
+ font-size: 30px;
+ letter-spacing: 0.1rem;
+ color: white;
+ text-shadow: 0.1rem 0.1rem 0.1rem #999999;
+ margin-bottom: 0.3rem;
+ margin-top: 2rem;
+
+}
+
+
+.carousel-caption p1{
+ font-size: 20px;
+ color: #4D5057;
+}
+
+/*.jumbotron .container {
+  position:relative;
+  top:40px;
+  }*/
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
+    filter: invert(1);
+  }
+
+  * {
+    font-family: "Georgia", Georgia, serif;
+  }
+
+
+  /*---Media Queries --*/
+  @media (max-width: 992px) {
+
+  }
+  @media (max-width: 768px) {
+    
+  }
+  @media (max-width: 576px) {
+    
+  }
+
+
+
+
+
+/*
 body { 
 	background-color: black;
 }
@@ -76,7 +200,9 @@ body {
   }
 }
 
-/* Older browser support - .no-cssanimations class added by modernizr */
+//Older browser support - .no-cssanimations class added by modernizr
 .no-cssanimations .slideshow li {
 	opacity: 1;
 }
+
+*/
