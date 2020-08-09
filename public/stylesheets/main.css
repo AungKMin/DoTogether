@@ -1,5 +1,11 @@
+:root { 
+	--yellow: #FEFFD6;
+	--blue: #0096C7; 
+	--red:#F8A98C; 
+}
+
 body { 
-	background-color: #FEFFD6; 
+	background-color: var(--yellow); 
 }
 
 .thumbnail img { 
@@ -57,8 +63,8 @@ html, body {
 .jumbotron-button { 
 	font-family:georgia; 
 	font-size: 1.5em;
-	background-color: #0096C7; 
-	color: #FEFFD6; 
+	background-color: var(--blue); 
+	color: var(--yellow); 
 }
 
 .jumbotron-text { 
@@ -67,11 +73,11 @@ html, body {
 }
 
 .jumbotron-add { 
-	background-color: #F8A98C;
+	background-color: var(--red);
 }
 
 .jumbotron-group { 
-	background-color: #0096C7; 
+	background-color: var(--blue); 
 	padding: 1em;
 	border-radius: 4px;
 }
@@ -79,7 +85,7 @@ html, body {
 .jumbotron-label { 
 	font-family: georgia;
 	font-size: 1.2em;
-	color: #FEFFD6; 
+	color: var(--yellow); 
 	font-weight: normal;
 }
 
@@ -88,24 +94,24 @@ label {
 }
 
 .form-input { 
-	background-color: #FEFFD6; 
-	color: #0096C7;
+	background-color: var(--yellow); 
+	color: var(--blue);
 }
 
 .page { 
-	background-color: #0096C7; 
+	background-color: var(--blue); 
 }
 
 .card {
   transition: 0.3s;
-	border: 0.5em solid #0096C7;
+	border: 0.5em solid var(--blue);
 	background-clip: content-box;	
 	font-family: georgia;
 }
 
 .card:hover {
-  box-shadow: 0 5px 10px 0 #F8A98C;
-	/*background-color: #0096C7; */
+  box-shadow: 1px 5px 10px 1px var(--red);
+	/*background-color: var(--blue); */
 }
 
 .card h2{
@@ -122,7 +128,7 @@ label {
 }
 
 .label {
-  background-color: #0096C7;
+  background-color: var(--blue);
   text-align:center;
   font-size: 1em;
 }
@@ -133,11 +139,28 @@ label {
 	margin-top: 0.7em;
 } 
 
-/*.card h3{*/
-  /*font-size: 10px;*/
-  /*font-style: italic;*/
-  /*color: gray;*/
-  /*text-align: right;*/
-/*}*/
+.navbar { 
+	background-color: var(--blue); 
+	font-family: georgia;
+}
 
+.navbar-default .navbar-brand { 
+	color: var(--yellow);
+}
 
+.navbar-default .navbar-nav li a { 
+	color: var(--yellow);
+}
+
+.navbar-default .navbar-nav li a:hover{ 
+	background-color: var(--red);
+}
+
+.navbar-default .navbar-nav .active a { 
+	background-color: var(--yellow);
+	color: var(--blue);
+} 
+
+.navbar-default .navbar-nav .active a:hover {
+	background-color: var(--red);
+}
