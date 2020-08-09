@@ -1,53 +1,50 @@
 <%- include('../partials/header') %>
 
 <div class="container">
-	<header class="jumbotron">
+	<header class="jumbotron jumbotron-add" style="text-align: center">
 		<div class="container">
-			<h1>Welcome to DoTogether</h1>
-			<p>View our recommended activities for you</p>
-			<p>
-				<a class="btn btn-primary btn-large" href="/activities/new">Post an activity</a>
-			</p>
-			<p>
-				<form action="/activities" method="GET" class="form-inline"> 
-					<div class="form-group">
-						<input type="text" name="search" placeholder="Search activities" class="form-control">
+			<div style="display: inline">
+				<a class="btn btn-primary jumbotron-button" href="/activities/new">Post an activity</a>
+			</div>
+			<span class="jumbotron-text" style="margin-left: 1em">or</span>
+			<div style="display: inline">
+				<form action="/activities" method="GET" class="form-inline" id="search" style="display: inline; margin-left: 1em"> 
+					<div class="form-group" style="display: inline-block">
+						<input class="btn btn-primary jumbotron-button" type="submit" value="Search">
 					</div>
-					<div class="form-group">
-						<p> Type of activity </p>				
-						<select name="category" size="10" multiple>
+					<div class="form-group jumbotron-group" style="margin-left: 1em">
+						<label for="search" class="jumbotron-label" style="display: block">Keywords</label>
+						<input type="text" name="search" placeholder="e.g. Harry Potter" class="form-control form-input" style="display: block">
+					</div>
+					<div class="form-group jumbotron-group" style="margin-left: 1em">
+						<label for="category" class="jumbotron-label">Categories</label>
+						<select name="category" size="6" multiple class="form-input" style="display: block">
 							<% categories.forEach(function(category) { %>
 								<option value="<%=category%>"><%=category%></option>
 							<% }) %>	
 						</select>						
 					</div>
-					<div class="form-group">
-						<input type="submit" value="Search" class="btn btn-default">					
-					</div>
 				</form>
-			</p>
+			</div>
 		</div>
 	</header>
 
-	<div class="row text-center" style="display:flex; flex-wrap: wrap">
+	<div class="row text-center" style="">
 			<% activities.forEach(function(activity) { %>
-			<a href="/activities/<%= activity._id %>">
+			<a href="/activities/<%= activity._id %>" style="text-decoration: none">
 				<div class="col-md-3 col-sm-6">
-					<div class="thumbnail">
+					<div class="thumbnail card">
 						<img src="<%= activity.image %>" onerror="this.src='https://images.unsplash.com/photo-1593007791459-4b05e1158229?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'" alt="An awesome activity" />
 						<div class="caption">
-							<h3> <%= activity.name %> </h3>
+							<h2> <%= activity.name %> </h2>
+							<h3> by <%= activity.author.username %> </h4>
 							<% activity.category.forEach(function(category) {%>
-								<h2 class="label label-primary large"><%=category%></h3>
+								<h4 class="label"><%=category%></h4>
 							<% })%>							
-							<h4> by <%= activity.author.username %> </h4>
 							<p> posted <%= moment(activity.dateCreated).fromNow() %> </p>
 							<p> Happening: <%= activity.date %></p>
 							<p> <%= activity.description.length > 50 ? activity.description.substring(0, 50) + '...' : activity.description%> </p>
 						</div>
-						<p>
-							<a href="/activities/<%= activity._id %>" class="btn btn-primary">More Info</a>
-						</p>
 					</div>
 				</div>
 			</a>
