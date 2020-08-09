@@ -10,6 +10,10 @@ body {
 	background-color: var(--yellow); 
 }
 
+h1 { 
+	font-family: georgia;
+}
+
 a { 
 	color: var(--blue);
 }
@@ -78,6 +82,7 @@ html, body {
 
 .btn-success { 
 	background-color: var(--blue);
+	color: var(--yellow);
 	border-color: var(--blue);
 }
 
@@ -309,3 +314,43 @@ hr {
 	color: var(--blue);
 }
 
+/*Profile*/
+.profile-box { 
+	background-color:var(--blue);
+	padding: 1em 1em 1em 1em;
+	color: var(--yellow);
+}
+
+.user-box { 
+	background-color: var(--red);
+	padding: 1em;
+	color: var(--yellow);
+}
+
+.user-box h1 { 
+	color: var(--yellow);
+	padding: 0.5em;
+	background-color: var(--blue);
+}
+
+.user-box .caption { 
+	background-color: var(--blue);
+	padding: 0.5em;
+	color: var(--yellow);
+}
+
+.profile-activities { 
+	background-color: var(--red);	
+	padding: 0.5em;
+	font-family: georgia;
+}
+
+.profile-activities ul li{ 
+	list-style-type: none;
+	background-color: var(--blue);
+	padding: 0.5em;
+}
+
+.profile-activities ul li a { 
+	color: var(--yellow);
+}

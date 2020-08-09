@@ -2,47 +2,52 @@
 
 <h1>User profile</h1>
 
-<div class="row">
-	<div class="col-md-4">
-		<div class="thumbnail">
-			<h1><%= user.firstName + ' ' + user.lastName%> aka <%= user.username %></h1>
-			<img style="height: 200px; width: 200px" src="<%=user.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture">
-			<% if (user.gender !== 'na') {%> 
-			<div class="caption">Gender: <%=user.gender%></div>
-			<% } %>
-			<div class="caption">Age: <%=userAge%></div>
+<div class="profile-box">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="thumbnail user-box">
+				<h1><%= user.firstName + ' ' + user.lastName%><%= user.username %></h1>
+				<img style="height: 200px; width: 200px" src="<%=user.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture">
+				<div class="caption">Name: <%= user.firstName + ' ' + user.lastName%></div>
+				<% if (user.gender !== 'na') {%> 
+				<div class="caption">Gender: <%=user.gender%></div>
+				<% } %>
+				<div class="caption">Age: <%=userAge%></div>
+				<% if (currentUser && user._id.equals(currentUser._id)) { %>
+					<div class="caption">Email: <%=user.email%></div>
+				<% } %>
+				<div class="caption">Contact: <%= user.contact%></div>
+			</div>
+			<p><%=user.bio%></p>
 			<% if (currentUser && user._id.equals(currentUser._id)) { %>
-				<div class="caption"><%=user.email%></div>
+					<a class="btn btn-s btn-warning" href="/users/<%=user._id%>/edit">Edit Profile</a>
 			<% } %>
-			<div class="caption">Contact: <%= user.contact%></div>
+			<% if (currentUser && !user._id.equals(currentUser._id)) { %>
+				<form action="/t/message/new/<%=user._id%>" method="POST"> <input class = "btn btn-s btn-success" type="submit" value="Message Author"> </form>
+			<%}%>
 		</div>
-		<p><%=user.bio%></p>
-		<% if (currentUser && user._id.equals(currentUser._id)) { %>
-				<a class="btn btn-s btn-warning" href="/users/<%=user._id%>/edit">Edit Profile</a>
-		<% } %>
-		<% if (currentUser && !user._id.equals(currentUser._id)) { %>
-			<form action="/t/message/new/<%=user._id%>" method="POST"> <input class = "btn btn-s btn-success" type="submit" value="Message Author"> </form>
-		<%}%>
+		<div class="col-md-8"> 
+			<% if (currentUser && user._id.equals(currentUser._id)) { %>
+				<% if (!currentUser.emailVerified) { %>
+					<p class="alert alert-danger"> Your email is NOT verified! <a href="/verify"><strong>Click here to verify</strong></a></p>
+				<% } %>		
+				<% if (!currentUser.editProfileOnce) { %>
+					<p class="alert alert-warning"> Update your profile to extend your reach</p>
+				<% } %> 
+			<% } %>
+			<div class="profile-activities">  
+				<% if (currentUser && user._id.equals(currentUser._id)) { %>
+					<a class="btn btn-success btn-large" href="/activities/new">Post an activity</a>
+				<% } %>	
+				<h3><em>Posted Activities</em></h3>
+					<ul>
+						<% user.activities.forEach(function(activity) { %>
+							<li><a href="/activities/<%=activity.id%>"><%= activity.name %>, posted <%=moment(activity.dateCreated).fromNow()%></a></li>
+						<% })%>
+					</ul>
+			</div>
+		</div> 
 	</div>
-	<div class="col-md-8"> 
-		<% if (currentUser && user._id.equals(currentUser._id)) { %>
-			<% if (!currentUser.emailVerified) { %>
-				<p class="alert alert-danger"> Your email is NOT verified </p>
-				<a href="/verify">Click here to verify</a>
-				<br><br>  
-			<% } %>		
-			<% if (!currentUser.editProfileOnce) { %>
-				<p class="alert alert-warning"> Update your profile to extend your reach</p>
-			<% } %> 
-			<a class="btn btn-primary btn-large" href="/activities/new">Post an activity</a>
-		<% } %>
-		<h3>Posted Activities</h3>
-			<ul>
-				<% user.activities.forEach(function(activity) { %>
-					<li><a href="/activities/<%=activity.id%>"><%= activity.name %>, posted <%=moment(activity.dateCreated).fromNow()%></a></li>
-				<% })%>
-			</ul>
-	</div> 
-</div>
+</div> 
 
 <%- include('../partials/footer') %>
