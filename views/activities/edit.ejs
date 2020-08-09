@@ -6,14 +6,16 @@
 		<div class="form-box">
 			<form action="/activities/<%= activity._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
+					<label target="activity[name]">Title</label>
 					<input type="text" class="form-control" name="activity[name]" value="<%=activity.name%>">
 				</div>
 				<div class="form-group">
+					<label target="activity[date]">When will the activity occur?</label>
 					<input type="text" class="form-control" name="activity[date]" value="<%=activity.date%>">
 				</div>
 				<div class="form-group">
-					<p> Type of activity </p>
-					<select name="activity[category]" multiple>
+					<label target="activity[category]">Categories</label>
+					<select name="activity[category]" multiple style="display: block">
 						<% categories.forEach(function(category) { %>
 							<option value="<%=category%>" <%=(activity.category.includes(category)) ? 'selected' : ''%>><%=category%></option>
 						<% }) %>	
@@ -23,6 +25,7 @@
 					<label for="image">Image</label>
 					<input type="file" id="image" class="form-control" name="image" accept="image/*">
 				<div class="form-group">
+					<label for="activity[description]">Description</label>
 					<input type="text" class="form-control" name="activity[description]" value="<%=activity.description%>">
 				</div>
 				<div class="form-group">

@@ -5,40 +5,48 @@
 	<div class="form-box">
 		<form action="/register" method="post" enctype="multipart/form-data">
 			<div class="form-group">
+				<label target="username">Username</label>
 				<input class="form-control" type="text" name="username" placeholder="username" required> 
 			</div>
 			<div class="form-group">
+				<label target="password">Password</label>
 				<input class="form-control" type="password" name="password" placeholder="password" required>
 			</div>
 			<div class="form-group">
+				<label target="firstName">First Name</label>
 				<input class="form-control" type="text" name="firstName" placeholder="first name" required>
 			</div>
 			<div class="form-group">
+				<label target="lastName">Last Name</label>
 				<input class="form-control" type="text" name="lastName" placeholder="last name" required>
 			</div>
 			<div class="form-group">
+				<label target="email">Email</label>
 				<input class="form-control" type="email" name="email" placeholder="email address" required>
 			</div>
 
 			<button class="collapsible">More about you (you can update these later)</button>
 			<div class="content">
+				<br>
 				<div class="form-group">
 					<label target="birthday">Birthday</label>				
-					<input name="birthday" type="date">
+					<input name="birthday" type="date" style="display: block">
 				</div>
 				<div class="form-group">
 					<label for="image">Upload your profile picture</label>
 					<input type="file" id="image" class="form-control" name="image" accept="image/*">
 				</div>
 				<div class="form-group">
+					<label target="bio">Your Bio</label>
 					<input class="form-control" type="text" name="bio" placeholder="bio">
 				</div>
 				<div class="form-group">
-					<input class="form-control" type="text" name="contact" placeholder="a way for others to contact you (everyone can see this on your profile)">
+					<label target="contact">Social Media</label>
+					<input class="form-control" type="text" name="contact" placeholder="a way for others to contact you">
 				</div>
 				<div class="form-group">
-					<p> Gender </p>				
-					<select name="gender">
+					<label target="gender">Gender</label>
+					<select name="gender" style="display: block">
 						<option value="na">prefer not to say</option>
 						<option value="male">male</option>
 						<option value="female">female</option>
