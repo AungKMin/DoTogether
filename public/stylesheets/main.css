@@ -101,6 +101,10 @@ html, body {
 	color: white; 
 }
 
+.jumbotron-button:hover { 
+	background-color: var(--lightgray);
+}
+
 .jumbotron-text { 
 	font-family: georgia;
 	font-size: 1.5em;
