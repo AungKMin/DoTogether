@@ -32,8 +32,12 @@ cloudinary.config({
 });
 
 // root
-router.get("/", function(req, res) { 
+router.get("/landing", function(req, res) { 
 	res.render("landing-page")
+})
+
+router.get("/", function(req, res) { 
+	res.render("home", {page: 'home'})
 })
 
 // ===== Auth Routes ======
