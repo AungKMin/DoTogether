@@ -49,8 +49,9 @@ router.get("/register", function(req, res) {
 
 // sign up logic
 router.post("/register", upload.single('image'), async function(req, res) { 
+	let birthday = undefined;
 	if (req.body.birthday) { 
-		let birthday = new Date(req.body.birthday);
+		birthday = new Date(req.body.birthday);
 		let age = utils.calculateAge(birthday) 
 		if (age < 13) { 
 			req.flash('error', "Sorry, you're a bit too young to use this site!")

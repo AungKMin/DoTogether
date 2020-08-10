@@ -49,6 +49,17 @@ router.get('/:id/edit', middleware.checkProfileOwnership, function(req, res) {
 
 // update the profile 
 router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), function(req, res) { 
+	let birthday = undefined;
+	if (req.body.birthday) { 
+		birthday = new Date(req.body.birthday);
+		let age = utils.calculateAge(birthday) 
+		if (age < 13) { 
+			req.flash('error', "Sorry, you're a bit too young to use this site!")
+			return res.redirect('back')
+		}
+	} else { 
+		birthday = undefined
+	}
 	User.findById(req.params.id, async function(err, user) { 
 		if (err || !user) { 
 			req.flash('error', 'error updating profile')
@@ -85,6 +96,7 @@ router.put('/:id', middleware.checkProfileOwnership, upload.single('image'), fun
 			user.bio = bio
 			user.gender = gender
 			user.contact = contact
+			user.birthday = birthday ? birthday : undefined
 			user.editProfileOnce = true
 			user.save(function(err) { 
 				if (err) { 
