@@ -4,10 +4,13 @@
 	--brightblue: #00bfff;
 	--red:#F8A98C; 
 	--blue-decimal: 0, 150, 199;
+	--lightgray: #D3D3D3;
+ 	--gray: #808080;	
+	--gray-decimal: 128, 128, 128;
 }
 
 body { 
-	background-color: var(--yellow); 
+	background-color: white; 
 }
 
 h1 { 
@@ -15,7 +18,7 @@ h1 {
 }
 
 a { 
-	color: var(--blue);
+	color: var(--gray);
 }
 
 .thumbnail img { 
@@ -46,8 +49,8 @@ html, body {
 }
 
 .collapsible {
-  background-color: var(--blue);
-  color: var(--yellow);
+  background-color: var(--gray);
+  color: white;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -59,7 +62,7 @@ html, body {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: var(--brightblue);
+  background-color: var(--lightgray);
 }
 
 /* Style the collapsible content. Note: hidden by default */
@@ -67,12 +70,12 @@ html, body {
   padding: 0 18px;
   display: none;
   overflow: hidden;
-  background-color: var(--yellow);
+  background-color: white;
 }
 
 /* Buttons */
 .btn { 
-	color: var(--yellow)
+	color: white
 }
 
 .btn-danger { 
@@ -81,27 +84,27 @@ html, body {
 } 
 
 .btn-success { 
-	background-color: var(--blue);
-	color: var(--yellow);
-	border-color: var(--blue);
+	background-color: var(--gray);
+	color: white;
+	border-color: var(--gray);
 }
 
 .btn-success:hover { 
-	background-color: var(--brightblue);
+	background-color: var(--lightgray);
 } 
 
 /* Activities page */
 .jumbotron-button { 
 	font-family:georgia; 
 	font-size: 1.5em;
-	background-color: var(--blue); 
-	color: var(--yellow); 
+	background-color: var(--gray); 
+	color: white; 
 }
 
 .jumbotron-text { 
 	font-family: georgia;
 	font-size: 1.5em;
-	color: var(--yellow);
+	color: white;
 }
 
 .jumbotron-add { 
@@ -109,7 +112,7 @@ html, body {
 }
 
 .jumbotron-group { 
-	background-color: var(--blue); 
+	background-color: var(--gray); 
 	padding: 1em;
 	border-radius: 4px;
 }
@@ -117,7 +120,7 @@ html, body {
 .jumbotron-label { 
 	font-family: georgia;
 	font-size: 1.2em;
-	color: var(--yellow); 
+	color: white; 
 	font-weight: normal;
 }
 
@@ -126,19 +129,19 @@ label {
 }
 
 .page { 
-	background-color: var(--blue); 
+	background-color: var(--gray); 
 }
 
 .card {
   transition: 0.3s;
-	border: 0.5em solid var(--blue);
+	border: 0.5em solid var(--gray);
 	background-clip: content-box;	
 	font-family: georgia;
 }
 
 .card:hover {
   box-shadow: 1px 5px 10px 1px var(--red);
-	/*background-color: var(--blue); */
+	/*background-color: var(--gray); */
 }
 
 .card h2{
@@ -160,7 +163,7 @@ label {
 }
 
 .label {
-  background-color: var(--blue);
+  background-color: var(--gray);
   font-size: 1em;
 }
 
@@ -180,17 +183,17 @@ label {
 
 .card .caption { 
 	text-align: justify;
-	background-color: var(--yellow);
+	background-color: white;
 }
 
 /*Navbar*/
 .navbar { 
-	background-color: var(--blue); 
+	background-color: var(--gray); 
 	font-family: georgia;
 }
 
 .navbar-default .navbar-brand { 
-	color: var(--yellow);
+	color: white;
 }
 
 .navbar-default .navbar-brand:hover { 
@@ -198,7 +201,7 @@ label {
 }
 
 .navbar-default .navbar-nav li a { 
-	color: var(--yellow);
+	color: white;
 }
 
 .navbar-default .navbar-nav li a:hover{ 
@@ -206,8 +209,8 @@ label {
 }
 
 .navbar-default .navbar-nav .active a { 
-	background-color: var(--yellow);
-	color: var(--blue);
+	background-color: white;
+	color: var(--gray);
 } 
 
 .navbar-default .navbar-nav .active a:hover {
@@ -216,17 +219,17 @@ label {
 
 /*Footer*/
 .footer a { 
-	color: var(--blue);
+	color: var(--gray);
 	text-decoration: underline;
 }
 
 /*activities index*/
 .activity-box { 
-	border: 2em solid var(--blue)
+	border: 2em solid var(--gray)
 }
 
 .activity-box .caption { 
-	background-color: var(--yellow);
+	background-color: white;
 	font-family: georgia; 
 }
 
@@ -240,14 +243,14 @@ hr {
 }
 
 .well { 
-	background-color: var(--yellow);
-	border: 2em solid var(--blue);
+	background-color: white;
+	border: 2em solid var(--gray);
 	padding: 9px;
 }
 
 .comment { 
 	font-family: georgia;
-	background-color: rgba(var(--blue-decimal),0.3); 
+	background-color: rgba(var(--gray-decimal),0.3); 
 	padding: 15px;
 	margin-bottom: 1em;
 }
@@ -264,20 +267,20 @@ hr {
 }
 
 .list-group-item { 
-	background-color: var(--blue);
-	color: var(--yellow);
+	background-color: var(--gray);
+	color: white;
 	text-decoration: none;
 }
 
 .list-group-item:hover { 
-	background-color: var(--brightblue);
+	background-color: var(--lightgray);
 	text-decoration: none;
 }
 
 .lead { 
 	font-size: 3em;
 	font-family: georgia;
-	color: var(--blue)
+	color: var(--gray)
 }
 
 /*forms*/
@@ -287,18 +290,18 @@ hr {
 }
 
 .form-box .form-group { 
-	color: var(--yellow);
-	background-color: var(--blue);
+	color: white;
+	background-color: var(--gray);
 	padding: 0.5em;
 }
 
 .form-box .form-group a {
- 	color: var(--yellow);	
+ 	color: white;	
 }
 
 .form-box .form-group a:hover { 
 	text-decoration: underline;
-	text-decoration-color: var(--yellow)
+	text-decoration-color: white
 }
 
 .form-box .form-group span { 
@@ -306,38 +309,38 @@ hr {
 }
 
 .form-group select, .form-group input[type="text"], .form-group input[type="password"], .form-group input[type="email"], .form-group input[type="file"], .form-group input[type="date"] { 
-	background-color: var(--yellow); 
-	color: var(--blue);
+	background-color: white; 
+	color: var(--gray);
 }
 
 .form-group input[type="text"] { 
-	background-color: var(--yellow); 
-	color: var(--blue);
+	background-color: white; 
+	color: var(--gray);
 }
 
 /*Profile*/
 .profile-box { 
-	background-color:var(--blue);
+	background-color:var(--gray);
 	padding: 1em 1em 1em 1em;
-	color: var(--yellow);
+	color: white;
 }
 
 .user-box { 
 	background-color: var(--red);
 	padding: 0.5em;
-	color: var(--yellow);
+	color: white;
 }
 
 .user-box h1 { 
-	color: var(--yellow);
+	color: white;
 	padding: 0.5em;
-	background-color: var(--blue);
+	background-color: var(--gray);
 }
 
 .user-box .caption { 
-	background-color: var(--blue);
+	background-color: var(--gray);
 	padding: 0.5em;
-	color: var(--yellow);
+	color: white;
 	margin: 0.5em;
 }
 
@@ -349,12 +352,12 @@ hr {
 
 .profile-activities ul li{ 
 	list-style-type: none;
-	background-color: var(--blue);
+	background-color: var(--gray);
 	padding: 0.5em;
 }
 
 .profile-activities ul li a { 
-	color: var(--yellow);
+	color: white;
 }
 
 /*Messages*/
