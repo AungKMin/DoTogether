@@ -7,7 +7,7 @@
 		<div class="col-md-4">
 			<div class="thumbnail user-box">
 				<h1><%= user.username %></h1>
-				<img style="height: 200px; width: 200px" src="<%=user.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture">
+				<img style="height: 200px; width: 200px; margin-bottom: 0.5em" src="<%=user.avatar%>" onerror="this.src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'" alt="user profile picture">
 				<div class="caption">Name: <%= user.firstName + ' ' + user.lastName%></div>
 				<% if (user.gender !== 'na') {%> 
 				<div class="caption">Gender: <%=user.gender%></div>
@@ -20,7 +20,7 @@
 			</div>
 			<p><%=user.bio%></p>
 			<% if (currentUser && user._id.equals(currentUser._id)) { %>
-					<a class="btn btn-s btn-warning" href="/users/<%=user._id%>/edit">Edit Profile</a>
+					<a class="btn btn-s btn-primary" href="/users/<%=user._id%>/edit">Edit Profile</a>
 			<% } %>
 			<% if (currentUser && !user._id.equals(currentUser._id)) { %>
 				<form action="/t/message/new/<%=user._id%>" method="POST"> <input class = "btn btn-s btn-success" type="submit" value="Message Author"> </form>
