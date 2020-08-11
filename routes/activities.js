@@ -194,7 +194,7 @@ router.delete('/:id', middleware.checkActivityOwnership, function(req, res) {
 			activity.comments.forEach(async function(comment) { 
 				await Comment.findByIdAndRemove(comment)
 			})
-			if (activity.image_id) { 
+			if (activity.imageId) { 
 				await cloudinary.uploader.destroy(activity.imageId)
 			}
 			await activity.remove()
