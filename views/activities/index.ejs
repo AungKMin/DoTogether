@@ -29,7 +29,7 @@
 		</div>
 	</header>
 
-	<div class="row text-center" style="display: flex, flex-wrap: wrap">
+	<div class="row text-center" style="display: flex; flex-wrap: wrap">
 			<% activities.forEach(function(activity) { %>
 			<a href="/activities/<%= activity._id %>" style="text-decoration: none">
 				<div class="col-md-3 col-sm-6">
@@ -44,6 +44,7 @@
 							<p class="posted"> posted <%= moment(activity.dateCreated).fromNow() %> </p>
 							<p> Happening: <%= activity.date %></p>
 							<p> <%= activity.description.length > 50 ? activity.description.substring(0, 50) + '...' : activity.description%> </p>
+							<a href="/activities/<%= activity._id %>" class="btn btn-primary">More Info</a>
 						</div>
 					</div>
 				</div>
