@@ -30,7 +30,7 @@
 	</header>
 
 	<div class="row text-center" style="display: flex; flex-wrap: wrap">
-			<% activities.forEach(function(activity) { %>
+			<% activities.reverse().forEach(function(activity) { %>
 			<a href="/activities/<%= activity._id %>" style="text-decoration: none">
 				<div class="col-md-3 col-sm-6">
 					<div class="thumbnail card">
