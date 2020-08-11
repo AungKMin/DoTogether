@@ -105,10 +105,19 @@ html, body {
 	background-color: var(--lightgray);
 }
 
+#post { 
+	background-color: var(--blue);
+}
+
+#post:hover { 
+	background-color: var(--brightblue);
+}
+
 .jumbotron-text { 
 	font-family: georgia;
 	font-size: 1.5em;
 	color: white;
+	text-shadow: 1px 1px gray;
 }
 
 .jumbotron-add { 
@@ -119,6 +128,7 @@ html, body {
 	background-color: var(--gray); 
 	padding: 1em;
 	border-radius: 4px;
+	margin: 1em;
 }
 
 .jumbotron-label { 
