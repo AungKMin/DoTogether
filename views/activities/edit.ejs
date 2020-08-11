@@ -15,7 +15,7 @@
 				</div>
 				<div class="form-group">
 					<label target="activity[category]">Categories</label>
-					<select name="activity[category]" multiple style="display: block">
+					<select name="activity[category]" multiple size="6" style="display: block">
 						<% categories.forEach(function(category) { %>
 							<option value="<%=category%>" <%=(activity.category.includes(category)) ? 'selected' : ''%>><%=category%></option>
 						<% }) %>	
