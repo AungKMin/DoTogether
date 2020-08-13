@@ -53,7 +53,7 @@ router.post("/register", upload.single('image'), async function(req, res) {
 	if (req.body.birthday) { 
 		birthday = new Date(req.body.birthday);
 		let age = utils.calculateAge(birthday) 
-		if (age < 13) { 
+		if (age < 18) { 
 			req.flash('error', "Sorry, you're a bit too young to use this site!")
 			return res.redirect('back')
 		}
