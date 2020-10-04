@@ -27,7 +27,8 @@
 						<ul class="nav navbar-nav">
 							<li class="<%= typeof page !== 'undefined' && page === 'home' ? 'active' : '' %>"><a href="/">Home</a></li>
 							<li class="<%= typeof page !== 'undefined' && page === 'activities' ? 'active' : '' %>"><a href="/activities">Activities</a></li>
-							<li><a href="https://form.jotform.com/zlaskar/form" target="blank">Give us feedback</a></li>
+							<li class="<%= typeof page !== 'undefined' && page === 'about' ? 'active' : '' %>"><a href="/about">About</a></li>
+							<li><a href="https://form.jotform.com/zlaskar/form" target="blank">Give us feedback!</a></li>
 							<% if (currentUser) { %>
 								<% let uncheckedTotalCount = 0
 								currentUser.conversations.forEach((conversation) => { 

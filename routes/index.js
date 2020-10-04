@@ -40,6 +40,10 @@ router.get("/", function(req, res) {
 	res.render("home", {page: 'home'})
 })
 
+router.get('/about', function(req, res){ 
+	res.render('about', {page: 'about'})
+})
+
 // ===== Auth Routes ======
 
 // register form
@@ -428,7 +432,6 @@ router.post('/verify/:token', function(req, res) {
     res.redirect('/activities');
   });
 });
-
 
 
 // exports
