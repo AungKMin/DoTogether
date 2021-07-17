@@ -34,7 +34,7 @@ app.use(flash())
 
 // set up express session
 app.use(require('express-session')({ 
-	secret: 'Super Secret Secret', 
+	secret: process.env.SESSION_PW, 
 	resave: false, 
 	saveUninitialized: false
 }))
