@@ -20,3 +20,15 @@
 </ol>
 
 <p> <b> Update: </b> You will also need a config file that is not in this repoistory as it includes sensitive passwords and configuration data. Ask me about this! </p>
+
+<h2> Images: </h2>
+<div style="float:left">
+<img src="screenshots/home.PNG">
+<img src="screenshots/about_us.PNG">
+<img src="screenshots/about_us2.PNG">
+<img src="screenshots/activities.PNG">
+<img src="screenshots/activity.PNG">
+<img src="screenshots/edit_activity.PNG">
+<img src="screenshots/chat.PNG">
+<img src="screenshots/profile.PNG">
+</div>
