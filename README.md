@@ -3,7 +3,8 @@
 
 <h2> Summary </h2>
 <p>The website is built with Node.js. Routing is handled with Express (within Node.js). Websockets are handled with socket.io. The database is handled with MongoDB (service provider: MongoDB Atlas).</p>
-<p>It is hosted on Heroku: https://dotogetherofficial.herokuapp.com/ </p> 
+<p>It is hosted on Heroku: https://dotogetherofficial.herokuapp.com/</p> 
+<p>Demo: https://youtu.be/3DPqrSPS6Ls </p>
 
 <h2> To run locally, you need: </h2>
 <ul>
